@@ -54,9 +54,11 @@
       :center="true"
       width="30%">
       <div style="text-align: center">
-        <span class="font-title-large"><span class="color-main font-extra-large">关注公众号</span>回复<span class="color-main font-extra-large">体验</span>获取体验账号</span>
+        <span class="font-title-large"><span class="color-main font-extra-large">关注公众号</span>回复<span
+          class="color-main font-extra-large">体验</span>获取体验账号</span>
         <br>
-        <img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg" width="160" height="160" style="margin-top: 10px">
+        <img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg" width="160"
+             height="160" style="margin-top: 10px">
       </div>
       <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click="dialogConfirm">确定</el-button>
@@ -67,7 +69,7 @@
 
 <script>
   import {isvalidUsername} from '@/utils/validate';
-  import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
+  import {setSupport, getSupport, setCookie, getCookie} from '@/utils/support';
   import login_center_bg from '@/assets/images/login_center_bg.png'
 
   export default {
@@ -99,17 +101,17 @@
         loading: false,
         pwdType: 'password',
         login_center_bg,
-        dialogVisible:false,
-        supportDialogVisible:false
+        dialogVisible: false,
+        supportDialogVisible: false
       }
     },
     created() {
       this.loginForm.username = getCookie("username");
       this.loginForm.password = getCookie("password");
-      if(this.loginForm.username === undefined||this.loginForm.username==null||this.loginForm.username===''){
+      if (this.loginForm.username === undefined || this.loginForm.username == null || this.loginForm.username === '') {
         this.loginForm.username = 'admin';
       }
-      if(this.loginForm.password === undefined||this.loginForm.password==null){
+      if (this.loginForm.password === undefined || this.loginForm.password == null) {
         this.loginForm.password = '';
       }
     },
@@ -132,8 +134,8 @@
             this.loading = true;
             this.$store.dispatch('Login', this.loginForm).then(() => {
               this.loading = false;
-              setCookie("username",this.loginForm.username,15);
-              setCookie("password",this.loginForm.password,15);
+              setCookie("username", this.loginForm.username, 15);
+              setCookie("password", this.loginForm.password, 15);
               this.$router.push({path: '/'})
             }).catch(() => {
               this.loading = false
@@ -144,14 +146,14 @@
           }
         })
       },
-      handleTry(){
-        this.dialogVisible =true
+      handleTry() {
+        this.dialogVisible = true
       },
-      dialogConfirm(){
-        this.dialogVisible =false;
+      dialogConfirm() {
+        this.dialogVisible = false;
         setSupport(true);
       },
-      dialogCancel(){
+      dialogCancel() {
         this.dialogVisible = false;
         setSupport(false);
       }
