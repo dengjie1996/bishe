@@ -1,4 +1,0 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://123.56.245.185:8001/eureka/
