@@ -3,8 +3,8 @@ spring:
     name: mall-monitor
   security: # 配置登录用户名和密码
     user:
-      name: macro
-      password: 123456
+      name: shad0w
+      password: shad0w
   boot:  # 不显示admin-server的监控信息
     admin:
       discovery:
@@ -16,4 +16,9 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8001/eureka/
+      defaultZone: http://123.56.245.185:8001/eureka/
+  instance:
+    hostname: ${eureka.instance.ip-address} #决定服务跳转host，必须指定
+    ip-address: 123.56.245.185 #指定ip 可通过外网访问
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}

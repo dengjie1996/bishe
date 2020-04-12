@@ -24,7 +24,7 @@ public class CommandOpenChrome implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (true) {
             //打开监控中心页面
-            String cmd = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" + " " + "http://localhost:8081";
+            String cmd = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" + " " + "http://localhost:8081/login";
             Runtime run = Runtime.getRuntime();
             try {
                 run.exec(cmd);
