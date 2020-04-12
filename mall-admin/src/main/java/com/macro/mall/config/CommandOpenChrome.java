@@ -24,7 +24,7 @@ public class CommandOpenChrome implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (true) {
             //接口文档
-            String cmd = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" + " " + "http://localhost:8201/mall-admin/swagger-ui.html";
+            String cmd = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" + " " + "http://123.56.245.185:8201/mall-admin/swagger-ui.html";
             Runtime run = Runtime.getRuntime();
             try {
                 run.exec(cmd);

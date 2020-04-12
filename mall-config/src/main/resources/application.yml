@@ -24,6 +24,7 @@ eureka:
       defaultZone: http://123.56.245.185:8001/eureka/
   instance:
     hostname: ${eureka.instance.ip-address} #决定服务跳转host，必须指定
-    ip-address: 123.56.245.185 #指定ip 可通过外网访问
+#    ip-address: 123.56.245.185 #指定ip 可通过外网访问
+    ip-address: localhost #指定ip 可通过外网访问
     prefer-ip-address: true
     instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}

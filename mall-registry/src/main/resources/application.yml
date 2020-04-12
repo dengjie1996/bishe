@@ -5,9 +5,12 @@ spring:
     name: mall-registry
 eureka:
   instance:
-    hostname: 123.56.245.185
+#    hostname: 123.56.245.185
+    hostname: localhost
   client:
     fetch-registry: false
     register-with-eureka: false
+    serviceUrl :
+      defaultZone: http://123.56.245.185:8001/eureka/
   server:
     enable-self-preservation: false
