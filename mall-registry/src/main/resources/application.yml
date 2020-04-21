@@ -6,11 +6,11 @@ spring:
 eureka:
   instance:
 #    hostname: 123.56.245.185
-    hostname: 192.168.0.105
+    hostname: localhost
   client:
     fetch-registry: false
     register-with-eureka: false
     serviceUrl :
-      defaultZone: http://192.168.0.105:8001/eureka/
+      defaultZone: http://localhost:8001/eureka/
   server:
     enable-self-preservation: false
