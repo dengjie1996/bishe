@@ -83,13 +83,14 @@
   </div>
 </template>
 <script>
-  import {fetchList,updateStatus,deleteSession,createSession,updateSession} from '@/api/flashSession';
+  import {fetchList, updateStatus, deleteSession, createSession, updateSession} from '@/api/flashSession';
   import {formatDate} from '@/utils/date';
-  const defaultFlashSession={
-    name:null,
-    startTime:null,
-    endTime:null,
-    status:0
+
+  const defaultFlashSession = {
+    name: null,
+    startTime: null,
+    endTime: null,
+    status: 0
   };
   export default {
     name: 'flashPromotionSessionList',
@@ -97,15 +98,15 @@
       return {
         list: null,
         listLoading: false,
-        dialogVisible:false,
-        isEdit:false,
-        flashSession:Object.assign({},defaultFlashSession)
+        dialogVisible: false,
+        isEdit: false,
+        flashSession: Object.assign({}, defaultFlashSession)
       }
     },
     created() {
       this.getList();
     },
-    filters:{
+    filters: {
       formatTime(time) {
         if (time == null || time === '') {
           return 'N/A';
@@ -118,9 +119,9 @@
       handleAdd() {
         this.dialogVisible = true;
         this.isEdit = false;
-        this.flashSession = Object.assign({},defaultFlashSession);
+        this.flashSession = Object.assign({}, defaultFlashSession);
       },
-      handleStatusChange(index,row){
+      handleStatusChange(index, row) {
         this.$confirm('是否要修改该状态?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -140,14 +141,14 @@
           this.getList();
         });
       },
-      handleUpdate(index,row){
+      handleUpdate(index, row) {
         this.dialogVisible = true;
         this.isEdit = true;
-        this.flashSession = Object.assign({},row);
-        this.flashSession.startTime=new Date(row.startTime);
-        this.flashSession.endTime=new Date(row.endTime);
+        this.flashSession = Object.assign({}, row);
+        this.flashSession.startTime = new Date(row.startTime);
+        this.flashSession.endTime = new Date(row.endTime);
       },
-      handleDelete(index,row){
+      handleDelete(index, row) {
         this.$confirm('是否要删除该时间段?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -169,12 +170,12 @@
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            updateSession(this.flashSession.id,this.flashSession).then(response => {
+            updateSession(this.flashSession.id, this.flashSession).then(response => {
               this.$message({
                 message: '修改成功！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           } else {
@@ -183,7 +184,7 @@
                 message: '添加成功！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           }

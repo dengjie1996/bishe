@@ -4,9 +4,10 @@
 
 <script>
   import ProductAttrDetail from './components/ProductAttrDetail'
+
   export default {
     name: 'updateProductAttr',
-    components: { ProductAttrDetail }
+    components: {ProductAttrDetail}
   }
 </script>
 

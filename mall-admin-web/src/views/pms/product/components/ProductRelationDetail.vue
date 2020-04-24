@@ -64,42 +64,42 @@
       this.getSubjectList();
       this.getPrefrenceAreaList();
     },
-    computed:{
+    computed: {
       //选中的专题
-      selectSubject:{
-        get:function () {
-          let subjects =[];
-          if(this.value.subjectProductRelationList==null||this.value.subjectProductRelationList.length<=0){
+      selectSubject: {
+        get: function () {
+          let subjects = [];
+          if (this.value.subjectProductRelationList == null || this.value.subjectProductRelationList.length <= 0) {
             return subjects;
           }
-          for(let i=0;i<this.value.subjectProductRelationList.length;i++){
+          for (let i = 0; i < this.value.subjectProductRelationList.length; i++) {
             subjects.push(this.value.subjectProductRelationList[i].subjectId);
           }
           return subjects;
         },
-        set:function (newValue) {
-          this.value.subjectProductRelationList=[];
-          for(let i=0;i<newValue.length;i++){
-            this.value.subjectProductRelationList.push({subjectId:newValue[i]});
+        set: function (newValue) {
+          this.value.subjectProductRelationList = [];
+          for (let i = 0; i < newValue.length; i++) {
+            this.value.subjectProductRelationList.push({subjectId: newValue[i]});
           }
         }
       },
       //选中的优选
-      selectPrefrenceArea:{
-        get:function () {
-          let prefrenceAreas =[];
-          if(this.value.prefrenceAreaProductRelationList==null||this.value.prefrenceAreaProductRelationList.length<=0){
+      selectPrefrenceArea: {
+        get: function () {
+          let prefrenceAreas = [];
+          if (this.value.prefrenceAreaProductRelationList == null || this.value.prefrenceAreaProductRelationList.length <= 0) {
             return prefrenceAreas;
           }
-          for(let i=0;i<this.value.prefrenceAreaProductRelationList.length;i++){
+          for (let i = 0; i < this.value.prefrenceAreaProductRelationList.length; i++) {
             prefrenceAreas.push(this.value.prefrenceAreaProductRelationList[i].prefrenceAreaId);
           }
           return prefrenceAreas;
         },
-        set:function (newValue) {
-          this.value.prefrenceAreaProductRelationList=[];
-          for(let i=0;i<newValue.length;i++){
-            this.value.prefrenceAreaProductRelationList.push({prefrenceAreaId:newValue[i]});
+        set: function (newValue) {
+          this.value.prefrenceAreaProductRelationList = [];
+          for (let i = 0; i < newValue.length; i++) {
+            this.value.prefrenceAreaProductRelationList.push({prefrenceAreaId: newValue[i]});
           }
         }
       }
@@ -120,7 +120,7 @@
         });
       },
       getPrefrenceAreaList() {
-        fetchPrefrenceAreaList().then(response=>{
+        fetchPrefrenceAreaList().then(response => {
           let list = response.data;
           for (let i = 0; i < list.length; i++) {
             this.prefrenceAreaList.push({
@@ -130,11 +130,11 @@
           }
         });
       },
-      handlePrev(){
+      handlePrev() {
         this.$emit('prevStep')
       },
-      handleFinishCommit(){
-        this.$emit('finishCommit',this.isEdit);
+      handleFinishCommit() {
+        this.$emit('finishCommit', this.isEdit);
       }
     }
   }

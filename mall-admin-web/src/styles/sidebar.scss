@@ -7,11 +7,12 @@
     margin-left: 180px;
   }
 
-   // 侧边栏
+  // 侧边栏
   .sidebar-container {
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
+
     transition: width .28s;
     width: 180px !important;
     height: 100%;
@@ -22,13 +23,16 @@
     left: 0;
     z-index: 1001;
     overflow: hidden;
+
     a {
       display: inline-block;
       width: 100%;
     }
+
     .svg-icon {
       margin-right: 16px;
     }
+
     .el-menu {
       border: none;
       width: 100% !important;
@@ -39,26 +43,32 @@
     .sidebar-container {
       width: 36px !important;
     }
+
     .main-container {
       margin-left: 36px;
     }
+
     .submenu-title-noDropdown {
       padding-left: 10px !important;
       position: relative;
+
       .el-tooltip {
         padding: 0 10px !important;
       }
     }
+
     .el-submenu {
-      &>.el-submenu__title {
+      & > .el-submenu__title {
         padding-left: 10px !important;
-        &>span {
+
+        & > span {
           height: 0;
           width: 0;
           overflow: hidden;
           visibility: hidden;
           display: inline-block;
         }
+
         .el-submenu__icon-arrow {
           display: none;
         }
@@ -66,14 +76,16 @@
     }
   }
 
-  .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
+  .sidebar-container .nest-menu .el-submenu > .el-submenu__title,
   .sidebar-container .el-submenu .el-menu-item {
     min-width: 180px !important;
     background-color: $subMenuBg !important;
+
     &:hover {
       background-color: $menuHover !important;
     }
   }
+
   .el-menu--collapse .el-menu .el-submenu {
     min-width: 180px !important;
   }
@@ -83,11 +95,13 @@
     .main-container {
       margin-left: 0px;
     }
+
     .sidebar-container {
       top: 50px;
       transition: transform .28s;
       width: 180px !important;
     }
+
     &.hideSidebar {
       .sidebar-container {
         transition-duration: 0.3s;

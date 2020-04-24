@@ -139,14 +139,15 @@
   </div>
 </template>
 <script>
-  import {fetchList,updateStatus,deleteHomeAdvertise} from '@/api/homeAdvertise';
+  import {fetchList, updateStatus, deleteHomeAdvertise} from '@/api/homeAdvertise';
   import {formatDate} from '@/utils/date';
+
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
     name: null,
     type: null,
-    endTime:null
+    endTime: null
   };
   const defaultTypeOptions = [
     {
@@ -180,16 +181,16 @@
     created() {
       this.getList();
     },
-    filters:{
-      formatType(type){
-        if(type===1){
+    filters: {
+      formatType(type) {
+        if (type === 1) {
           return 'APP首页轮播';
-        }else{
+        } else {
           return 'PC首页轮播';
         }
       },
-      formatTime(time){
-        if(time==null||time===''){
+      formatTime(time) {
+        if (time == null || time === '') {
           return 'N/A';
         }
         let date = new Date(time);
@@ -204,7 +205,7 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleSizeChange(val) {
@@ -216,13 +217,13 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleUpdateStatus(index,row){
+      handleUpdateStatus(index, row) {
         this.$confirm('是否要修改上线/下线状态?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          updateStatus(row.id,{status:row.status}).then(response=>{
+          updateStatus(row.id, {status: row.status}).then(response => {
             this.getList();
             this.$message({
               type: 'success',
@@ -237,10 +238,10 @@
           this.getList();
         });
       },
-      handleDelete(index,row){
+      handleDelete(index, row) {
         this.deleteHomeAdvertise(row.id);
       },
-      handleBatchOperate(){
+      handleBatchOperate() {
         if (this.multipleSelection < 1) {
           this.$message({
             message: '请选择一条记录',
@@ -253,10 +254,10 @@
         for (let i = 0; i < this.multipleSelection.length; i++) {
           ids.push(this.multipleSelection[i].id);
         }
-        if(this.operateType===0){
+        if (this.operateType === 0) {
           //删除
           this.deleteHomeAdvertise(ids);
-        }else {
+        } else {
           this.$message({
             message: '请选择批量操作类型',
             type: 'warning',
@@ -264,10 +265,10 @@
           });
         }
       },
-      handleAdd(){
+      handleAdd() {
         this.$router.push({path: '/sms/addAdvertise'})
       },
-      handleUpdate(index,row){
+      handleUpdate(index, row) {
         this.$router.push({path: '/sms/updateAdvertise', query: {id: row.id}})
       },
       getList() {
@@ -278,15 +279,15 @@
           this.total = response.data.total;
         })
       },
-      deleteHomeAdvertise(ids){
+      deleteHomeAdvertise(ids) {
         this.$confirm('是否要删除该广告?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          deleteHomeAdvertise(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          deleteHomeAdvertise(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',

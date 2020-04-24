@@ -56,11 +56,11 @@
         <el-table-column label="是否推荐" width="200" align="center">
           <template slot-scope="scope">
             <el-switch
-            @change="handleRecommendStatusStatusChange(scope.$index, scope.row)"
-            :active-value="1"
-            :inactive-value="0"
-            v-model="scope.row.recommendStatus">
-          </el-switch>
+              @change="handleRecommendStatusStatusChange(scope.$index, scope.row)"
+              :active-value="1"
+              :inactive-value="0"
+              v-model="scope.row.recommendStatus">
+            </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="排序" width="160" align="center">
@@ -125,7 +125,7 @@
       <el-table :data="dialogData.list"
                 @selection-change="handleDialogSelectionChange" border>
         <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="品牌名称"align="center">
+        <el-table-column label="品牌名称" align="center">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
         <el-table-column label="相关" width="220" align="center">
@@ -149,8 +149,8 @@
       </div>
       <div style="clear: both;"></div>
       <div slot="footer">
-        <el-button  size="small" @click="selectDialogVisible = false">取 消</el-button>
-        <el-button  size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
+        <el-button size="small" @click="selectDialogVisible = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
       </div>
     </el-dialog>
     <el-dialog title="设置排序"
@@ -170,7 +170,13 @@
   </div>
 </template>
 <script>
-  import {fetchList,updateRecommendStatus,deleteHomeBrand,createHomeBrand,updateHomeBrandSort} from '@/api/homeBrand';
+  import {
+    fetchList,
+    updateRecommendStatus,
+    deleteHomeBrand,
+    createHomeBrand,
+    updateHomeBrandSort
+  } from '@/api/homeBrand';
   import {fetchList as fetchBrandList} from '@/api/brand';
 
   const defaultListQuery = {
@@ -214,29 +220,29 @@
           }
         ],
         operateType: null,
-        selectDialogVisible:false,
-        dialogData:{
+        selectDialogVisible: false,
+        dialogData: {
           list: null,
           total: null,
-          multipleSelection:[],
-          listQuery:{
+          multipleSelection: [],
+          listQuery: {
             keyword: null,
             pageNum: 1,
             pageSize: 5
           }
         },
-        sortDialogVisible:false,
-        sortDialogData:{sort:0,id:null}
+        sortDialogVisible: false,
+        sortDialogData: {sort: 0, id: null}
       }
     },
     created() {
       this.getList();
     },
-    filters:{
-      formatRecommendStatus(status){
-        if(status===1){
+    filters: {
+      formatRecommendStatus(status) {
+        if (status === 1) {
           return '推荐中';
-        }else{
+        } else {
           return '未推荐';
         }
       }
@@ -249,7 +255,7 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleSizeChange(val) {
@@ -261,13 +267,13 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleRecommendStatusStatusChange(index,row){
-        this.updateRecommendStatusStatus(row.id,row.recommendStatus);
+      handleRecommendStatusStatusChange(index, row) {
+        this.updateRecommendStatusStatus(row.id, row.recommendStatus);
       },
-      handleDelete(index,row){
+      handleDelete(index, row) {
         this.deleteBrand(row.id);
       },
-      handleBatchOperate(){
+      handleBatchOperate() {
         if (this.multipleSelection < 1) {
           this.$message({
             message: '请选择一条记录',
@@ -282,14 +288,14 @@
         }
         if (this.operateType === 0) {
           //设为推荐
-          this.updateRecommendStatusStatus(ids,1);
+          this.updateRecommendStatusStatus(ids, 1);
         } else if (this.operateType === 1) {
           //取消推荐
-          this.updateRecommendStatusStatus(ids,0);
-        } else if(this.operateType===2){
+          this.updateRecommendStatusStatus(ids, 0);
+        } else if (this.operateType === 2) {
           //删除
           this.deleteBrand(ids);
-        }else {
+        } else {
           this.$message({
             message: '请选择批量操作类型',
             type: 'warning',
@@ -298,11 +304,11 @@
           return;
         }
       },
-      handleSelectBrand(){
-        this.selectDialogVisible=true;
+      handleSelectBrand() {
+        this.selectDialogVisible = true;
         this.getDialogList();
       },
-      handleSelectSearch(){
+      handleSelectSearch() {
         this.getDialogList();
       },
       handleDialogSizeChange(val) {
@@ -314,10 +320,10 @@
         this.dialogData.listQuery.pageNum = val;
         this.getDialogList();
       },
-      handleDialogSelectionChange(val){
+      handleDialogSelectionChange(val) {
         this.dialogData.multipleSelection = val;
       },
-      handleSelectDialogConfirm(){
+      handleSelectDialogConfirm() {
         if (this.dialogData.multipleSelection < 1) {
           this.$message({
             message: '请选择一条记录',
@@ -329,8 +335,8 @@
         let selectBrands = [];
         for (let i = 0; i < this.dialogData.multipleSelection.length; i++) {
           selectBrands.push({
-            brandId:this.dialogData.multipleSelection[i].id,
-            brandName:this.dialogData.multipleSelection[i].name
+            brandId: this.dialogData.multipleSelection[i].id,
+            brandName: this.dialogData.multipleSelection[i].name
           });
         }
         this.$confirm('使用要进行添加操作?', '提示', {
@@ -338,9 +344,9 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          createHomeBrand(selectBrands).then(response=>{
-            this.selectDialogVisible=false;
-            this.dialogData.multipleSelection=[];
+          createHomeBrand(selectBrands).then(response => {
+            this.selectDialogVisible = false;
+            this.dialogData.multipleSelection = [];
             this.getList();
             this.$message({
               type: 'success',
@@ -349,19 +355,19 @@
           });
         });
       },
-      handleEditSort(index,row){
-        this.sortDialogVisible=true;
-        this.sortDialogData.sort=row.sort;
-        this.sortDialogData.id=row.id;
+      handleEditSort(index, row) {
+        this.sortDialogVisible = true;
+        this.sortDialogData.sort = row.sort;
+        this.sortDialogData.id = row.id;
       },
-      handleUpdateSort(){
+      handleUpdateSort() {
         this.$confirm('是否要修改排序?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          updateHomeBrandSort(this.sortDialogData).then(response=>{
-            this.sortDialogVisible=false;
+          updateHomeBrandSort(this.sortDialogData).then(response => {
+            this.sortDialogVisible = false;
             this.getList();
             this.$message({
               type: 'success',
@@ -378,16 +384,16 @@
           this.total = response.data.total;
         })
       },
-      updateRecommendStatusStatus(ids,status){
+      updateRecommendStatusStatus(ids, status) {
         this.$confirm('是否要修改推荐状态?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          params.append("recommendStatus",status);
-          updateRecommendStatus(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          params.append("recommendStatus", status);
+          updateRecommendStatus(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',
@@ -402,15 +408,15 @@
           this.getList();
         });
       },
-      deleteBrand(ids){
+      deleteBrand(ids) {
         this.$confirm('是否要删除该推荐?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          deleteHomeBrand(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          deleteHomeBrand(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',
@@ -419,10 +425,10 @@
           });
         })
       },
-      getDialogList(){
-        fetchBrandList(this.dialogData.listQuery).then(response=>{
-          this.dialogData.list=response.data.list;
-          this.dialogData.total=response.data.total;
+      getDialogList() {
+        fetchBrandList(this.dialogData.listQuery).then(response => {
+          this.dialogData.list = response.data.list;
+          this.dialogData.total = response.data.total;
         })
       }
     }

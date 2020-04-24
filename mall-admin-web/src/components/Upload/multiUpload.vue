@@ -28,9 +28,9 @@
       //图片属性数组
       value: Array,
       //最大上传图片数量
-      maxCount:{
-        type:Number,
-        default:5
+      maxCount: {
+        type: Number,
+        default: 5
       }
     },
     data() {
@@ -44,25 +44,25 @@
           host: ''
         },
         dialogVisible: false,
-        dialogImageUrl:null,
-        useOss:true, //使用oss->true;使用MinIO->false
-        ossUploadUrl:'http://macro-oss.oss-cn-shenzhen.aliyuncs.com',
-        minioUploadUrl:'http://localhost:8080/minio/upload',
+        dialogImageUrl: null,
+        useOss: true, //使用oss->true;使用MinIO->false
+        ossUploadUrl: 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com',
+        minioUploadUrl: 'http://localhost:8080/minio/upload',
       };
     },
     computed: {
       fileList() {
-        let fileList=[];
-        for(let i=0;i<this.value.length;i++){
-          fileList.push({url:this.value[i]});
+        let fileList = [];
+        for (let i = 0; i < this.value.length; i++) {
+          fileList.push({url: this.value[i]});
         }
         return fileList;
       }
     },
     methods: {
       emitInput(fileList) {
-        let value=[];
-        for(let i=0;i<fileList.length;i++){
+        let value = [];
+        for (let i = 0; i < fileList.length; i++) {
           value.push(fileList[i].url);
         }
         this.$emit('input', value)
@@ -72,11 +72,11 @@
       },
       handlePreview(file) {
         this.dialogVisible = true;
-        this.dialogImageUrl=file.url;
+        this.dialogImageUrl = file.url;
       },
       beforeUpload(file) {
         let _self = this;
-        if(!this.useOss){
+        if (!this.useOss) {
           //不使用oss不需要获取策略
           return true;
         }
@@ -97,18 +97,18 @@
       },
       handleUploadSuccess(res, file) {
         let url = this.dataObj.host + '/' + this.dataObj.dir + '/' + file.name;
-        if(!this.useOss){
+        if (!this.useOss) {
           //不使用oss直接获取图片路径
           url = res.data.url;
         }
-        this.fileList.push({name: file.name,url:url});
+        this.fileList.push({name: file.name, url: url});
         this.emitInput(this.fileList);
       },
       handleExceed(files, fileList) {
         this.$message({
-          message: '最多只能上传'+this.maxCount+'张图片',
+          message: '最多只能上传' + this.maxCount + '张图片',
           type: 'warning',
-          duration:1000
+          duration: 1000
         });
       },
     }

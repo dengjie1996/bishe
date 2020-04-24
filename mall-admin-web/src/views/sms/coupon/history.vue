@@ -143,7 +143,7 @@
     orderSn: null,
     couponId: null
   };
-  const defaultUseTypeOptions= [
+  const defaultUseTypeOptions = [
     {
       label: "未使用",
       value: 0
@@ -163,17 +163,17 @@
       return {
         coupon: {},
         listQuery: Object.assign({}, defaultListQuery),
-        useTypeOptions:Object.assign({},defaultUseTypeOptions),
-        list:null,
-        total:null,
-        listLoading:false
+        useTypeOptions: Object.assign({}, defaultUseTypeOptions),
+        list: null,
+        total: null,
+        listLoading: false
       }
     },
     created() {
       getCoupon(this.$route.query.id).then(response => {
         this.coupon = response.data;
       });
-      this.listQuery.couponId=this.$route.query.id;
+      this.listQuery.couponId = this.$route.query.id;
       this.getList();
     },
     filters: {
@@ -219,9 +219,9 @@
         }
       },
       formatGetType(type) {
-        if(type===1){
+        if (type === 1) {
           return '主动获取';
-        }else{
+        } else {
           return '后台赠送';
         }
       },
@@ -243,17 +243,17 @@
       },
     },
     methods: {
-      getList(){
-        this.listLoading=true;
-        fetchCouponHistoryList(this.listQuery).then(response=>{
-          this.listLoading=false;
-          this.list=response.data.list;
-          this.total=response.data.total;
+      getList() {
+        this.listLoading = true;
+        fetchCouponHistoryList(this.listQuery).then(response => {
+          this.listLoading = false;
+          this.list = response.data.list;
+          this.total = response.data.total;
         });
       },
       handleResetSearch() {
         this.listQuery = Object.assign({}, defaultListQuery);
-        this.listQuery.couponId=this.$route.query.id;
+        this.listQuery.couponId = this.$route.query.id;
       },
       handleSearchList() {
         this.listQuery.pageNum = 1;

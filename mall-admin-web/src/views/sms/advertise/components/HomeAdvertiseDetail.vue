@@ -64,6 +64,7 @@
 <script>
   import SingleUpload from '@/components/Upload/singleUpload'
   import {createHomeAdvertise, getHomeAdvertise, updateHomeAdvertise} from '@/api/homeAdvertise'
+
   const defaultTypeOptions = [
     {
       label: 'PC首页轮播',
@@ -87,7 +88,7 @@
   };
   export default {
     name: 'HomeAdvertiseDetail',
-    components:{SingleUpload},
+    components: {SingleUpload},
     props: {
       isEdit: {
         type: Boolean,
@@ -118,13 +119,13 @@
         typeOptions: Object.assign({}, defaultTypeOptions)
       }
     },
-    created(){
+    created() {
       if (this.isEdit) {
         getHomeAdvertise(this.$route.query.id).then(response => {
           this.homeAdvertise = response.data;
         });
-      }else{
-        this.homeAdvertise = Object.assign({},defaultHomeAdvertise);
+      } else {
+        this.homeAdvertise = Object.assign({}, defaultHomeAdvertise);
       }
     },
     methods: {
@@ -142,18 +143,18 @@
                   this.$message({
                     message: '修改成功',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                   this.$router.back();
                 });
               } else {
                 createHomeAdvertise(this.homeAdvertise).then(response => {
                   this.$refs[formName].resetFields();
-                  this.homeAdvertise = Object.assign({},defaultHomeAdvertise);
+                  this.homeAdvertise = Object.assign({}, defaultHomeAdvertise);
                   this.$message({
                     message: '提交成功',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                 });
               }
@@ -163,7 +164,7 @@
             this.$message({
               message: '验证失败',
               type: 'error',
-              duration:1000
+              duration: 1000
             });
             return false;
           }
@@ -171,7 +172,7 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.homeAdvertise = Object.assign({},defaultHomeAdvertise);
+        this.homeAdvertise = Object.assign({}, defaultHomeAdvertise);
       }
     }
   }

@@ -51,29 +51,30 @@
 </template>
 <script>
   import {deliveryOrder} from '@/api/order'
-  const defaultLogisticsCompanies=["顺丰快递","圆通快递","中通快递","韵达快递"];
+
+  const defaultLogisticsCompanies = ["顺丰快递", "圆通快递", "中通快递", "韵达快递"];
   export default {
     name: 'deliverOrderList',
     data() {
       return {
-        list:[],
-        companyOptions:defaultLogisticsCompanies
+        list: [],
+        companyOptions: defaultLogisticsCompanies
       }
     },
-    created(){
-      this.list= this.$route.query.list;
+    created() {
+      this.list = this.$route.query.list;
     },
-    methods:{
-      cancel(){
+    methods: {
+      cancel() {
         this.$router.back();
       },
-      confirm(){
+      confirm() {
         this.$confirm('是否要进行发货操作?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deliveryOrder(this.list).then(response=>{
+          deliveryOrder(this.list).then(response => {
             this.$router.back();
             this.$message({
               type: 'success',

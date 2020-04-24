@@ -149,8 +149,8 @@
       </div>
       <div style="clear: both;"></div>
       <div slot="footer">
-        <el-button  size="small" @click="selectDialogVisible = false">取 消</el-button>
-        <el-button  size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
+        <el-button size="small" @click="selectDialogVisible = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
       </div>
     </el-dialog>
     <el-dialog title="设置排序"
@@ -170,7 +170,13 @@
   </div>
 </template>
 <script>
-  import {fetchList,updateRecommendStatus,deleteHomeSubject,createHomeSubject,updateHomeSubjectSort} from '@/api/homeSubject';
+  import {
+    fetchList,
+    updateRecommendStatus,
+    deleteHomeSubject,
+    createHomeSubject,
+    updateHomeSubjectSort
+  } from '@/api/homeSubject';
   import {fetchList as fetchSubjectList} from '@/api/subject';
   import {formatDate} from '@/utils/date';
 
@@ -215,34 +221,34 @@
           }
         ],
         operateType: null,
-        selectDialogVisible:false,
-        dialogData:{
+        selectDialogVisible: false,
+        dialogData: {
           list: null,
           total: null,
-          multipleSelection:[],
-          listQuery:{
+          multipleSelection: [],
+          listQuery: {
             keyword: null,
             pageNum: 1,
             pageSize: 5
           }
         },
-        sortDialogVisible:false,
-        sortDialogData:{sort:0,id:null}
+        sortDialogVisible: false,
+        sortDialogData: {sort: 0, id: null}
       }
     },
     created() {
       this.getList();
     },
-    filters:{
-      formatRecommendStatus(status){
-        if(status===1){
+    filters: {
+      formatRecommendStatus(status) {
+        if (status === 1) {
           return '推荐中';
-        }else{
+        } else {
           return '未推荐';
         }
       },
-      formatTime(time){
-        if(time==null||time===''){
+      formatTime(time) {
+        if (time == null || time === '') {
           return 'N/A';
         }
         let date = new Date(time);
@@ -257,7 +263,7 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleSizeChange(val) {
@@ -269,13 +275,13 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleRecommendStatusStatusChange(index,row){
-        this.updateRecommendStatusStatus(row.id,row.recommendStatus);
+      handleRecommendStatusStatusChange(index, row) {
+        this.updateRecommendStatusStatus(row.id, row.recommendStatus);
       },
-      handleDelete(index,row){
+      handleDelete(index, row) {
         this.deleteSubject(row.id);
       },
-      handleBatchOperate(){
+      handleBatchOperate() {
         if (this.multipleSelection < 1) {
           this.$message({
             message: '请选择一条记录',
@@ -290,14 +296,14 @@
         }
         if (this.operateType === 0) {
           //设为推荐
-          this.updateRecommendStatusStatus(ids,1);
+          this.updateRecommendStatusStatus(ids, 1);
         } else if (this.operateType === 1) {
           //取消推荐
-          this.updateRecommendStatusStatus(ids,0);
-        } else if(this.operateType===2){
+          this.updateRecommendStatusStatus(ids, 0);
+        } else if (this.operateType === 2) {
           //删除
           this.deleteSubject(ids);
-        }else {
+        } else {
           this.$message({
             message: '请选择批量操作类型',
             type: 'warning',
@@ -305,12 +311,12 @@
           });
         }
       },
-      handleSelectSubject(){
-        this.selectDialogVisible=true;
-        this.dialogData.listQuery.keyword=null;
+      handleSelectSubject() {
+        this.selectDialogVisible = true;
+        this.dialogData.listQuery.keyword = null;
         this.getDialogList();
       },
-      handleSelectSearch(){
+      handleSelectSearch() {
         this.getDialogList();
       },
       handleDialogSizeChange(val) {
@@ -322,10 +328,10 @@
         this.dialogData.listQuery.pageNum = val;
         this.getDialogList();
       },
-      handleDialogSelectionChange(val){
+      handleDialogSelectionChange(val) {
         this.dialogData.multipleSelection = val;
       },
-      handleSelectDialogConfirm(){
+      handleSelectDialogConfirm() {
         if (this.dialogData.multipleSelection < 1) {
           this.$message({
             message: '请选择一条记录',
@@ -337,8 +343,8 @@
         let selectSubjects = [];
         for (let i = 0; i < this.dialogData.multipleSelection.length; i++) {
           selectSubjects.push({
-            subjectId:this.dialogData.multipleSelection[i].id,
-            subjectName:this.dialogData.multipleSelection[i].title
+            subjectId: this.dialogData.multipleSelection[i].id,
+            subjectName: this.dialogData.multipleSelection[i].title
           });
         }
         this.$confirm('使用要进行添加操作?', '提示', {
@@ -346,9 +352,9 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          createHomeSubject(selectSubjects).then(response=>{
-            this.selectDialogVisible=false;
-            this.dialogData.multipleSelection=[];
+          createHomeSubject(selectSubjects).then(response => {
+            this.selectDialogVisible = false;
+            this.dialogData.multipleSelection = [];
             this.getList();
             this.$message({
               type: 'success',
@@ -357,19 +363,19 @@
           });
         });
       },
-      handleEditSort(index,row){
-        this.sortDialogVisible=true;
-        this.sortDialogData.sort=row.sort;
-        this.sortDialogData.id=row.id;
+      handleEditSort(index, row) {
+        this.sortDialogVisible = true;
+        this.sortDialogData.sort = row.sort;
+        this.sortDialogData.id = row.id;
       },
-      handleUpdateSort(){
+      handleUpdateSort() {
         this.$confirm('是否要修改排序?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          updateHomeSubjectSort(this.sortDialogData).then(response=>{
-            this.sortDialogVisible=false;
+          updateHomeSubjectSort(this.sortDialogData).then(response => {
+            this.sortDialogVisible = false;
             this.getList();
             this.$message({
               type: 'success',
@@ -386,16 +392,16 @@
           this.total = response.data.total;
         })
       },
-      updateRecommendStatusStatus(ids,status){
+      updateRecommendStatusStatus(ids, status) {
         this.$confirm('是否要修改推荐状态?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          params.append("recommendStatus",status);
-          updateRecommendStatus(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          params.append("recommendStatus", status);
+          updateRecommendStatus(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',
@@ -410,15 +416,15 @@
           this.getList();
         });
       },
-      deleteSubject(ids){
+      deleteSubject(ids) {
         this.$confirm('是否要删除该推荐?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          deleteHomeSubject(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          deleteHomeSubject(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',
@@ -427,10 +433,10 @@
           });
         })
       },
-      getDialogList(){
-        fetchSubjectList(this.dialogData.listQuery).then(response=>{
-          this.dialogData.list=response.data.list;
-          this.dialogData.total=response.data.total;
+      getDialogList() {
+        fetchSubjectList(this.dialogData.listQuery).then(response => {
+          this.dialogData.list = response.data.list;
+          this.dialogData.total = response.data.total;
         })
       }
     }

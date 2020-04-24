@@ -3,9 +3,10 @@
 </template>
 <script>
   import CouponDetail from './components/CouponDetail'
+
   export default {
     name: 'addCoupon',
-    components: { CouponDetail }
+    components: {CouponDetail}
   }
 </script>
 <style scoped>

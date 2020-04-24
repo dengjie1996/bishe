@@ -1,10 +1,10 @@
-import { asyncRouterMap, constantRouterMap } from '@/router/index';
+import {asyncRouterMap, constantRouterMap} from '@/router/index';
 
 //判断是否有权限访问该菜单
 function hasPermission(menus, route) {
   if (route.name) {
     let currMenu = getMenu(route.name, menus);
-    if (currMenu!=null) {
+    if (currMenu != null) {
       //设置菜单的标题、图标和可见性
       if (currMenu.title != null && currMenu.title !== '') {
         route.meta.title = currMenu.title;
@@ -12,7 +12,7 @@ function hasPermission(menus, route) {
       if (currMenu.icon != null && currMenu.title !== '') {
         route.meta.icon = currMenu.icon;
       }
-      if(currMenu.hidden!=null){
+      if (currMenu.hidden != null) {
         route.hidden = currMenu.hidden !== 0;
       }
       if (currMenu.sort != null && currMenu.sort !== '') {
@@ -36,7 +36,7 @@ function hasPermission(menus, route) {
 function getMenu(name, menus) {
   for (let i = 0; i < menus.length; i++) {
     let menu = menus[i];
-    if (name===menu.name) {
+    if (name === menu.name) {
       return menu;
     }
   }
@@ -47,7 +47,7 @@ function getMenu(name, menus) {
 function sortRouters(accessedRouters) {
   for (let i = 0; i < accessedRouters.length; i++) {
     let router = accessedRouters[i];
-    if(router.children && router.children.length > 0){
+    if (router.children && router.children.length > 0) {
       router.children.sort(compare("sort"));
     }
   }
@@ -55,8 +55,8 @@ function sortRouters(accessedRouters) {
 }
 
 //降序比较函数
-function compare(p){
-  return function(m,n){
+function compare(p) {
+  return function (m, n) {
     let a = m[p];
     let b = n[p];
     return b - a;
@@ -75,10 +75,10 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes({ commit }, data) {
+    GenerateRoutes({commit}, data) {
       return new Promise(resolve => {
-        const { menus } = data;
-        const { username } = data;
+        const {menus} = data;
+        const {username} = data;
         const accessedRouters = asyncRouterMap.filter(v => {
           //admin帐号直接返回所有菜单
           // if(username==='admin') return true;

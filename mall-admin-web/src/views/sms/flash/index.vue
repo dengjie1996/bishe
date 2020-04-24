@@ -203,7 +203,7 @@
       handleAdd() {
         this.dialogVisible = true;
         this.isEdit = false;
-        this.flashPromotion = Object.assign({},defaultFlashPromotion);
+        this.flashPromotion = Object.assign({}, defaultFlashPromotion);
       },
       handleShowSessionList() {
         this.$router.push({path: '/sms/flashSession'})
@@ -246,7 +246,7 @@
       handleUpdate(index, row) {
         this.dialogVisible = true;
         this.isEdit = true;
-        this.flashPromotion = Object.assign({},row);
+        this.flashPromotion = Object.assign({}, row);
       },
       handleDialogConfirm() {
         this.$confirm('是否要确认?', '提示', {
@@ -255,12 +255,12 @@
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            updateFlash(this.flashPromotion.id,this.flashPromotion).then(response => {
+            updateFlash(this.flashPromotion.id, this.flashPromotion).then(response => {
               this.$message({
                 message: '修改成功！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           } else {
@@ -269,14 +269,14 @@
                 message: '添加成功！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           }
         })
       },
-      handleSelectSession(index,row){
-        this.$router.push({path:'/sms/selectSession',query:{flashPromotionId:row.id}})
+      handleSelectSession(index, row) {
+        this.$router.push({path: '/sms/selectSession', query: {flashPromotionId: row.id}})
       },
       getList() {
         this.listLoading = true;

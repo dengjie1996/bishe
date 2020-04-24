@@ -42,10 +42,12 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="handleUpdate(scope.$index, scope.row)">编辑</el-button>
+              @click="handleUpdate(scope.$index, scope.row)">编辑
+            </el-button>
             <el-button
               size="mini"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              @click="handleDelete(scope.$index, scope.row)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -106,16 +108,17 @@
 </template>
 <script>
   import {formatDate} from '@/utils/date';
-  import {fetchList,deleteReason,updateStatus,addReason,getReasonDetail,updateReason} from '@/api/returnReason';
+  import {fetchList, deleteReason, updateStatus, addReason, getReasonDetail, updateReason} from '@/api/returnReason';
+
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5
   };
   const defaultReturnReason = {
-    name:null,
-    sort:0,
-    status:1,
-    createTime:null
+    name: null,
+    sort: 0,
+    status: 1,
+    createTime: null
   };
   export default {
     name: 'returnReasonList',
@@ -124,24 +127,24 @@
         list: null,
         total: null,
         multipleSelection: [],
-        listLoading:true,
-        listQuery:Object.assign({}, defaultListQuery),
-        operateType:null,
+        listLoading: true,
+        listQuery: Object.assign({}, defaultListQuery),
+        operateType: null,
         operateOptions: [
           {
             label: "删除",
             value: 1
           }
         ],
-        dialogVisible:false,
-        returnReason:Object.assign({},defaultReturnReason),
-        operateReasonId:null
+        dialogVisible: false,
+        returnReason: Object.assign({}, defaultReturnReason),
+        operateReasonId: null
       }
     },
-    created(){
+    created() {
       this.getList();
     },
-    filters:{
+    filters: {
       formatCreateTime(time) {
         let date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
@@ -149,67 +152,67 @@
     },
     methods: {
       handleAdd() {
-        this.dialogVisible=true;
-        this.operateReasonId=null;
-        this.returnReason=Object.assign({},defaultReturnReason);
+        this.dialogVisible = true;
+        this.operateReasonId = null;
+        this.returnReason = Object.assign({}, defaultReturnReason);
       },
-      handleConfirm(){
-        if(this.operateReasonId==null){
+      handleConfirm() {
+        if (this.operateReasonId == null) {
           //添加操作
-          addReason(this.returnReason).then(response=>{
-            this.dialogVisible=false;
-            this.operateReasonId=null;
+          addReason(this.returnReason).then(response => {
+            this.dialogVisible = false;
+            this.operateReasonId = null;
             this.$message({
               message: '添加成功！',
               type: 'success',
-              duration:1000
+              duration: 1000
             });
             this.getList();
           });
-        }else{
+        } else {
           //编辑操作
-          updateReason(this.operateReasonId,this.returnReason).then(response=>{
-            this.dialogVisible=false;
-            this.operateReasonId=null;
+          updateReason(this.operateReasonId, this.returnReason).then(response => {
+            this.dialogVisible = false;
+            this.operateReasonId = null;
             this.$message({
               message: '修改成功！',
               type: 'success',
-              duration:1000
+              duration: 1000
             });
             this.getList();
           });
         }
       },
-      handleUpdate(index, row){
-        this.dialogVisible=true;
-        this.operateReasonId=row.id;
-        getReasonDetail(row.id).then(response=>{
-          this.returnReason=response.data;
+      handleUpdate(index, row) {
+        this.dialogVisible = true;
+        this.operateReasonId = row.id;
+        getReasonDetail(row.id).then(response => {
+          this.returnReason = response.data;
         });
       },
-      handleDelete(index, row){
-        let ids=[];
+      handleDelete(index, row) {
+        let ids = [];
         ids.push(row.id);
         this.deleteReason(ids);
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-      handleStatusChange(index,row){
-        let ids=[];
+      handleStatusChange(index, row) {
+        let ids = [];
         ids.push(row.id);
         let param = new URLSearchParams();
-        param.append("status",row.status);
-        param.append("ids",ids);
-        updateStatus(param).then(response=>{
+        param.append("status", row.status);
+        param.append("ids", ids);
+        updateStatus(param).then(response => {
           this.$message({
             message: '状态修改成功',
             type: 'success'
           });
         });
       },
-      handleBatchOperate(){
-        if(this.multipleSelection==null||this.multipleSelection.length<1){
+      handleBatchOperate() {
+        if (this.multipleSelection == null || this.multipleSelection.length < 1) {
           this.$message({
             message: '请选择要操作的条目',
             type: 'warning',
@@ -217,24 +220,24 @@
           });
           return;
         }
-        if(this.operateType===1){
-          let ids=[];
-          for(let i=0;i<this.multipleSelection.length;i++){
+        if (this.operateType === 1) {
+          let ids = [];
+          for (let i = 0; i < this.multipleSelection.length; i++) {
             ids.push(this.multipleSelection[i].id);
           }
           this.deleteReason(ids);
         }
       },
-      handleSizeChange(val){
+      handleSizeChange(val) {
         this.listQuery.pageNum = 1;
         this.listQuery.pageSize = val;
         this.getList();
       },
-      handleCurrentChange(val){
+      handleCurrentChange(val) {
         this.listQuery.pageNum = val;
         this.getList();
       },
-      getList(){
+      getList() {
         this.listLoading = true;
         fetchList(this.listQuery).then(response => {
           this.listLoading = false;
@@ -242,21 +245,21 @@
           this.total = response.data.total;
         });
       },
-      deleteReason(ids){
+      deleteReason(ids) {
         this.$confirm('是否要进行该删除操作?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           let params = new URLSearchParams();
-          params.append("ids",ids);
-          deleteReason(params).then(response=>{
+          params.append("ids", ids);
+          deleteReason(params).then(response => {
             this.$message({
               message: '删除成功！',
               type: 'success',
               duration: 1000
             });
-            this.listQuery.pageNum=1;
+            this.listQuery.pageNum = 1;
             this.getList();
           });
         })

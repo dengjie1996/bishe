@@ -101,13 +101,13 @@
       </div>
       <div style="clear: both;"></div>
       <div slot="footer">
-        <el-button  size="small" @click="selectDialogVisible = false">取 消</el-button>
-        <el-button  size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
+        <el-button size="small" @click="selectDialogVisible = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
       </div>
     </el-dialog>
     <el-dialog title="编辑秒杀商品信息"
-      :visible.sync="editDialogVisible"
-      width="40%">
+               :visible.sync="editDialogVisible"
+               width="40%">
       <el-form :model="flashProductRelation"
                ref="flashProductRelationForm"
                label-width="150px" size="small">
@@ -146,8 +146,14 @@
   </div>
 </template>
 <script>
-  import {fetchList,createFlashProductRelation,deleteFlashProductRelation,updateFlashProductRelation} from '@/api/flashProductRelation';
+  import {
+    fetchList,
+    createFlashProductRelation,
+    deleteFlashProductRelation,
+    updateFlashProductRelation
+  } from '@/api/flashProductRelation';
   import {fetchList as fetchProductList} from '@/api/product';
+
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
@@ -155,7 +161,7 @@
     flashPromotionSessionId: null
   };
   export default {
-    name:'flashPromotionProductRelationList',
+    name: 'flashPromotionProductRelationList',
     data() {
       return {
         listQuery: Object.assign({}, defaultListQuery),
@@ -163,29 +169,29 @@
         total: null,
         listLoading: false,
         dialogVisible: false,
-        selectDialogVisible:false,
-        dialogData:{
+        selectDialogVisible: false,
+        dialogData: {
           list: null,
           total: null,
-          multipleSelection:[],
-          listQuery:{
+          multipleSelection: [],
+          listQuery: {
             keyword: null,
             pageNum: 1,
             pageSize: 5
           }
         },
-        editDialogVisible:false,
-        flashProductRelation:{
-          product:{}
+        editDialogVisible: false,
+        flashProductRelation: {
+          product: {}
         }
       }
     },
-    created(){
-      this.listQuery.flashPromotionId=this.$route.query.flashPromotionId;
-      this.listQuery.flashPromotionSessionId=this.$route.query.flashPromotionSessionId;
+    created() {
+      this.listQuery.flashPromotionId = this.$route.query.flashPromotionId;
+      this.listQuery.flashPromotionSessionId = this.$route.query.flashPromotionSessionId;
       this.getList();
     },
-    methods:{
+    methods: {
       handleSizeChange(val) {
         this.listQuery.pageNum = 1;
         this.listQuery.pageSize = val;
@@ -195,15 +201,15 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleSelectProduct(){
-        this.selectDialogVisible=true;
+      handleSelectProduct() {
+        this.selectDialogVisible = true;
         this.getDialogList();
       },
-      handleUpdate(index,row){
+      handleUpdate(index, row) {
         this.editDialogVisible = true;
-        this.flashProductRelation = Object.assign({},row);
+        this.flashProductRelation = Object.assign({}, row);
       },
-      handleDelete(index,row){
+      handleDelete(index, row) {
         this.$confirm('是否要删除该商品?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -218,7 +224,7 @@
           });
         });
       },
-      handleSelectSearch(){
+      handleSelectSearch() {
         this.getDialogList();
       },
       handleDialogSizeChange(val) {
@@ -230,10 +236,10 @@
         this.dialogData.listQuery.pageNum = val;
         this.getDialogList();
       },
-      handleDialogSelectionChange(val){
+      handleDialogSelectionChange(val) {
         this.dialogData.multipleSelection = val;
       },
-      handleSelectDialogConfirm(){
+      handleSelectDialogConfirm() {
         if (this.dialogData.multipleSelection < 1) {
           this.$message({
             message: '请选择一条记录',
@@ -245,9 +251,9 @@
         let selectProducts = [];
         for (let i = 0; i < this.dialogData.multipleSelection.length; i++) {
           selectProducts.push({
-            productId:this.dialogData.multipleSelection[i].id,
-            flashPromotionId:this.listQuery.flashPromotionId,
-            flashPromotionSessionId:this.listQuery.flashPromotionSessionId
+            productId: this.dialogData.multipleSelection[i].id,
+            flashPromotionId: this.listQuery.flashPromotionId,
+            flashPromotionSessionId: this.listQuery.flashPromotionSessionId
           });
         }
         this.$confirm('使用要进行添加操作?', '提示', {
@@ -255,9 +261,9 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          createFlashProductRelation(selectProducts).then(response=>{
-            this.selectDialogVisible=false;
-            this.dialogData.multipleSelection=[];
+          createFlashProductRelation(selectProducts).then(response => {
+            this.selectDialogVisible = false;
+            this.dialogData.multipleSelection = [];
             this.getList();
             this.$message({
               type: 'success',
@@ -266,20 +272,20 @@
           });
         });
       },
-      handleEditDialogConfirm(){
+      handleEditDialogConfirm() {
         this.$confirm('是否要确认?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-            updateFlashProductRelation(this.flashProductRelation.id,this.flashProductRelation).then(response => {
-              this.$message({
-                message: '修改成功！',
-                type: 'success'
-              });
-              this.editDialogVisible =false;
-              this.getList();
-            })
+          updateFlashProductRelation(this.flashProductRelation.id, this.flashProductRelation).then(response => {
+            this.$message({
+              message: '修改成功！',
+              type: 'success'
+            });
+            this.editDialogVisible = false;
+            this.getList();
+          })
         })
       },
       getList() {
@@ -290,20 +296,21 @@
           this.total = response.data.total;
         });
       },
-      getDialogList(){
-        fetchProductList(this.dialogData.listQuery).then(response=>{
-          this.dialogData.list=response.data.list;
-          this.dialogData.total=response.data.total;
+      getDialogList() {
+        fetchProductList(this.dialogData.listQuery).then(response => {
+          this.dialogData.list = response.data.list;
+          this.dialogData.total = response.data.total;
         })
       }
     }
   }
 </script>
 <style scoped>
-  .operate-container{
+  .operate-container {
     margin-top: 0;
   }
-  .input-width{
+
+  .input-width {
     width: 200px;
   }
 </style>

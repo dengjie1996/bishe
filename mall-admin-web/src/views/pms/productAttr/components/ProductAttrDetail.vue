@@ -60,7 +60,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('productAttrFrom')">提交</el-button>
-        <el-button  v-if="!isEdit" @click="resetForm('productAttrFrom')">重置</el-button>
+        <el-button v-if="!isEdit" @click="resetForm('productAttrFrom')">重置</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -68,7 +68,7 @@
 
 <script>
   import {fetchList} from '@/api/productAttrCate'
-  import {createProductAttr,getProductAttr,updateProductAttr} from '@/api/productAttr'
+  import {createProductAttr, getProductAttr, updateProductAttr} from '@/api/productAttr'
 
   const defaultProductAttr = {
     filterType: 0,
@@ -101,23 +101,23 @@
           ]
         },
         productAttrCateList: null,
-        inputListFormat:null
+        inputListFormat: null
       }
     },
     created() {
-      if(this.isEdit){
+      if (this.isEdit) {
         getProductAttr(this.$route.query.id).then(response => {
           this.productAttr = response.data;
-          this.inputListFormat = this.productAttr.inputList.replace(/,/g,'\n');
+          this.inputListFormat = this.productAttr.inputList.replace(/,/g, '\n');
         });
-      }else{
+      } else {
         this.resetProductAttr();
       }
       this.getCateList();
     },
-    watch:{
+    watch: {
       inputListFormat: function (newValue, oldValue) {
-        newValue = newValue.replace(/\n/g,',');
+        newValue = newValue.replace(/\n/g, ',');
         this.productAttr.inputList = newValue;
       }
     },
@@ -141,8 +141,8 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              if(this.isEdit){
-                updateProductAttr(this.$route.query.id,this.productAttr).then(response=>{
+              if (this.isEdit) {
+                updateProductAttr(this.$route.query.id, this.productAttr).then(response => {
                   this.$message({
                     message: '修改成功',
                     type: 'success',
@@ -150,8 +150,8 @@
                   });
                   this.$router.back();
                 });
-              }else{
-                createProductAttr(this.productAttr).then(response=>{
+              } else {
+                createProductAttr(this.productAttr).then(response => {
                   this.$message({
                     message: '提交成功',
                     type: 'success',

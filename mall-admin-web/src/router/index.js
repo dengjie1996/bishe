@@ -147,14 +147,14 @@ export const asyncRouterMap = [
         name: 'orderDetail',
         component: () => import('@/views/oms/order/orderDetail'),
         meta: {title: '订单详情'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'deliverOrderList',
         name: 'deliverOrderList',
         component: () => import('@/views/oms/order/deliverOrderList'),
         meta: {title: '发货列表'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'orderSetting',
@@ -179,12 +179,12 @@ export const asyncRouterMap = [
         name: 'returnApplyDetail',
         component: () => import('@/views/oms/apply/applyDetail'),
         meta: {title: '退货原因详情'},
-        hidden:true
+        hidden: true
       }
     ]
   },
   {
-    path:'/sms',
+    path: '/sms',
     component: Layout,
     redirect: '/sms/coupon',
     name: 'sms',
@@ -201,21 +201,21 @@ export const asyncRouterMap = [
         name: 'flashSession',
         component: () => import('@/views/sms/flash/sessionList'),
         meta: {title: '秒杀时间段列表'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'selectSession',
         name: 'selectSession',
         component: () => import('@/views/sms/flash/selectSessionList'),
         meta: {title: '秒杀时间段选择'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'flashProductRelation',
         name: 'flashProductRelation',
         component: () => import('@/views/sms/flash/productRelationList'),
         meta: {title: '秒杀商品列表'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'coupon',
@@ -228,21 +228,21 @@ export const asyncRouterMap = [
         name: 'addCoupon',
         component: () => import('@/views/sms/coupon/add'),
         meta: {title: '添加优惠券'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'updateCoupon',
         name: 'updateCoupon',
         component: () => import('@/views/sms/coupon/update'),
         meta: {title: '修改优惠券'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'couponHistory',
         name: 'couponHistory',
         component: () => import('@/views/sms/coupon/history'),
         meta: {title: '优惠券领取详情'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'brand',
@@ -279,19 +279,19 @@ export const asyncRouterMap = [
         name: 'addHomeAdvertise',
         component: () => import('@/views/sms/advertise/add'),
         meta: {title: '添加广告'},
-        hidden:true
+        hidden: true
       },
       {
         path: 'updateAdvertise',
         name: 'updateHomeAdvertise',
         component: () => import('@/views/sms/advertise/update'),
         meta: {title: '编辑广告'},
-        hidden:true
+        hidden: true
       }
     ]
   },
   {
-    path:'/ums',
+    path: '/ums',
     component: Layout,
     redirect: '/ums/admin',
     name: 'ums',

@@ -28,7 +28,9 @@
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
         <el-table-column label="前端图标" width="100" align="center">
-          <template slot-scope="scope"><svg-icon :icon-class="scope.row.icon"></svg-icon></template>
+          <template slot-scope="scope">
+            <svg-icon :icon-class="scope.row.icon"></svg-icon>
+          </template>
         </el-table-column>
         <el-table-column label="是否显示" width="100" align="center">
           <template slot-scope="scope">
@@ -85,7 +87,7 @@
 </template>
 
 <script>
-  import {fetchList,deleteMenu,updateMenu,updateHidden} from '@/api/menu'
+  import {fetchList, deleteMenu, updateMenu, updateHidden} from '@/api/menu'
 
   export default {
     name: "menuList",
@@ -112,7 +114,7 @@
       }
     },
     methods: {
-      resetParentId(){
+      resetParentId() {
         this.listQuery.pageNum = 1;
         if (this.$route.query.parentId != null) {
           this.parentId = this.$route.query.parentId;
@@ -141,7 +143,7 @@
         this.getList();
       },
       handleHiddenChange(index, row) {
-        updateHidden(row.id,{hidden:row.hidden}).then(response=>{
+        updateHidden(row.id, {hidden: row.hidden}).then(response => {
           this.$message({
             message: '修改成功',
             type: 'success',
@@ -153,7 +155,7 @@
         this.$router.push({path: '/ums/menu', query: {parentId: row.id}})
       },
       handleUpdate(index, row) {
-        this.$router.push({path:'/ums/updateMenu',query:{id:row.id}});
+        this.$router.push({path: '/ums/updateMenu', query: {id: row.id}});
       },
       handleDelete(index, row) {
         this.$confirm('是否要删除该菜单', '提示', {

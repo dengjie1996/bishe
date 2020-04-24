@@ -12,7 +12,7 @@
   import '../../../static/tinymce4.7.5/langs/zh_CN'
 
   const plugins = [
- `advlist anchor autolink autosave code codesample colorpicker colorpicker
+    `advlist anchor autolink autosave code codesample colorpicker colorpicker
   contextmenu directionality emoticons fullscreen hr image imagetools importcss insertdatetime
   legacyoutput link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace
   spellchecker tabfocus table template textcolor textpattern visualblocks visualchars wordcount`

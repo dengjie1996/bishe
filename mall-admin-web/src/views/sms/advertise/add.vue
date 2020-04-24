@@ -3,9 +3,10 @@
 </template>
 <script>
   import HomeAdvertiseDetail from './components/HomeAdvertiseDetail'
+
   export default {
     name: 'addHomeAdvertise',
-    components: { HomeAdvertiseDetail }
+    components: {HomeAdvertiseDetail}
   }
 </script>
 <style></style>

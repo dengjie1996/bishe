@@ -27,7 +27,7 @@
 <script>
   import {fetchAllResourceList} from '@/api/resource';
   import {listAllCate} from '@/api/resourceCategory';
-  import {allocResource,listResourceByRole} from '@/api/role';
+  import {allocResource, listResourceByRole} from '@/api/role';
 
   export default {
     name: "allocResource",
@@ -72,22 +72,22 @@
         }
         return cateResource;
       },
-      getResourceByRole(roleId){
-        listResourceByRole(roleId).then(response=>{
+      getResourceByRole(roleId) {
+        listResourceByRole(roleId).then(response => {
           let allocResource = response.data;
-          this.allResource.forEach(item=>{
-            item.checked = this.getResourceChecked(item.id,allocResource);
+          this.allResource.forEach(item => {
+            item.checked = this.getResourceChecked(item.id, allocResource);
           });
-          this.allResourceCate.forEach(item=>{
+          this.allResourceCate.forEach(item => {
             item.checked = this.isAllChecked(item.id);
           });
           this.$forceUpdate();
         });
       },
-      getResourceChecked(resourceId,allocResource){
-        if(allocResource==null||allocResource.length===0) return false;
-        for(let i=0;i<allocResource.length;i++){
-          if(allocResource[i].id===resourceId){
+      getResourceChecked(resourceId, allocResource) {
+        if (allocResource == null || allocResource.length === 0) return false;
+        for (let i = 0; i < allocResource.length; i++) {
+          if (allocResource[i].id === resourceId) {
             return true;
           }
         }
@@ -113,7 +113,7 @@
             checkedCount++;
           }
         }
-        if(checkedCount===0){
+        if (checkedCount === 0) {
           return false;
         }
         return checkedCount === cateResources.length;
@@ -162,8 +162,8 @@
         this.$forceUpdate();
       },
       handleCheckChange(resource) {
-        this.allResourceCate.forEach(item=>{
-          if(item.id===resource.categoryId){
+        this.allResourceCate.forEach(item => {
+          if (item.id === resource.categoryId) {
             item.checked = this.isAllChecked(resource.categoryId);
           }
         });

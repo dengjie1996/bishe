@@ -40,7 +40,7 @@
   import ProductSaleDetail from './ProductSaleDetail';
   import ProductAttrDetail from './ProductAttrDetail';
   import ProductRelationDetail from './ProductRelationDetail';
-  import {createProduct,getProduct,updateProduct} from '@/api/product';
+  import {createProduct, getProduct, updateProduct} from '@/api/product';
 
   const defaultProductParam = {
     albumPics: '',
@@ -71,7 +71,7 @@
     //商品满减
     productFullReductionList: [{fullPrice: 0, reducePrice: 0}],
     //商品阶梯价格
-    productLadderList: [{count: 0,discount: 0,price: 0}],
+    productLadderList: [{count: 0, discount: 0, price: 0}],
     previewStatus: 0,
     price: 0,
     productAttributeCategoryId: null,
@@ -119,10 +119,10 @@
         showStatus: [true, false, false, false]
       }
     },
-    created(){
-      if(this.isEdit){
-        getProduct(this.$route.query.id).then(response=>{
-          this.productParam=response.data;
+    created() {
+      if (this.isEdit) {
+        getProduct(this.$route.query.id).then(response => {
+          this.productParam = response.data;
         });
       }
     },
@@ -152,21 +152,21 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          if(isEdit){
-            updateProduct(this.$route.query.id,this.productParam).then(response=>{
+          if (isEdit) {
+            updateProduct(this.$route.query.id, this.productParam).then(response => {
               this.$message({
                 type: 'success',
                 message: '提交成功',
-                duration:1000
+                duration: 1000
               });
               this.$router.back();
             });
-          }else{
-            createProduct(this.productParam).then(response=>{
+          } else {
+            createProduct(this.productParam).then(response => {
               this.$message({
                 type: 'success',
                 message: '提交成功',
-                duration:1000
+                duration: 1000
               });
               location.reload();
             });

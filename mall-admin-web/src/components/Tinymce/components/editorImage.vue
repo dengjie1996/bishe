@@ -110,7 +110,7 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .upload-container .editor-slide-upload{
+  .upload-container .editor-slide-upload {
     margin-bottom: 20px;
   }
 </style>

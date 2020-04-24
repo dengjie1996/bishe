@@ -110,7 +110,7 @@
           <el-table-column label="商品名称" align="center">
             <template slot-scope="scope">{{scope.row.productName}}</template>
           </el-table-column>
-          <el-table-column label="货号" align="center"  width="120" >
+          <el-table-column label="货号" align="center" width="120">
             <template slot-scope="scope">NO.{{scope.row.productSn}}</template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="100">
@@ -140,9 +140,10 @@
   </el-card>
 </template>
 <script>
-  import {createCoupon,getCoupon,updateCoupon} from '@/api/coupon';
+  import {createCoupon, getCoupon, updateCoupon} from '@/api/coupon';
   import {fetchSimpleList as fetchProductList} from '@/api/product';
   import {fetchListWithChildren} from '@/api/productCate'
+
   const defaultCoupon = {
     type: 0,
     name: null,
@@ -209,31 +210,31 @@
             {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
           ],
           publishCount: [
-            {type: 'number',required: true, message: '只能输入正整数', trigger: 'blur'}
+            {type: 'number', required: true, message: '只能输入正整数', trigger: 'blur'}
           ],
           amount: [
-            {type: 'number',required: true,message: '面值只能是数值，0.01-10000，限2位小数',trigger: 'blur'}
+            {type: 'number', required: true, message: '面值只能是数值，0.01-10000，限2位小数', trigger: 'blur'}
           ],
           minPoint: [
-            {type: 'number',required: true,message: '只能输入正整数',trigger: 'blur'}
+            {type: 'number', required: true, message: '只能输入正整数', trigger: 'blur'}
           ]
         },
-        selectProduct:null,
+        selectProduct: null,
         selectProductLoading: false,
-        selectProductOptions:[],
+        selectProductOptions: [],
         selectProductCate: null,
         productCateOptions: []
       }
     },
-    created(){
-      if(this.isEdit){
-        getCoupon(this.$route.query.id).then(response=>{
-          this.coupon=response.data;
+    created() {
+      if (this.isEdit) {
+        getCoupon(this.$route.query.id).then(response => {
+          this.coupon = response.data;
         });
       }
       this.getProductCateList();
     },
-    methods:{
+    methods: {
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -242,23 +243,23 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              if(this.isEdit){
-                updateCoupon(this.$route.query.id,this.coupon).then(response=>{
+              if (this.isEdit) {
+                updateCoupon(this.$route.query.id, this.coupon).then(response => {
                   this.$refs[formName].resetFields();
                   this.$message({
                     message: '修改成功',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                   this.$router.back();
                 });
-              }else{
-                createCoupon(this.coupon).then(response=>{
+              } else {
+                createCoupon(this.coupon).then(response => {
                   this.$refs[formName].resetFields();
                   this.$message({
                     message: '提交成功',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                   this.$router.back();
                 });
@@ -268,7 +269,7 @@
             this.$message({
               message: '验证失败',
               type: 'error',
-              duration:1000
+              duration: 1000
             });
             return false;
           }
@@ -276,26 +277,26 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.coupon = Object.assign({},defaultCoupon);
+        this.coupon = Object.assign({}, defaultCoupon);
       },
-      searchProductMethod(query){
+      searchProductMethod(query) {
         if (query !== '') {
           this.loading = true;
-          fetchProductList({keyword:query}).then(response=>{
-            this.loading=false;
+          fetchProductList({keyword: query}).then(response => {
+            this.loading = false;
             let productList = response.data;
             this.selectProductOptions = [];
-            for(let i=0;i<productList.length;i++){
+            for (let i = 0; i < productList.length; i++) {
               let item = productList[i];
-              this.selectProductOptions.push({productId:item.id,productName:item.name,productSn:item.productSn});
+              this.selectProductOptions.push({productId: item.id, productName: item.name, productSn: item.productSn});
             }
           });
         } else {
           this.selectProductOptions = [];
         }
       },
-      handleAddProductRelation(){
-        if(this.selectProduct===null){
+      handleAddProductRelation() {
+        if (this.selectProduct === null) {
           this.$message({
             message: '请先选择商品',
             type: 'warning'
@@ -303,13 +304,13 @@
           return
         }
         this.coupon.productRelationList.push(this.getProductById(this.selectProduct));
-        this.selectProduct=null;
+        this.selectProduct = null;
       },
-      handleDeleteProductRelation(index,row){
-        this.coupon.productRelationList.splice(index,1);
+      handleDeleteProductRelation(index, row) {
+        this.coupon.productRelationList.splice(index, 1);
       },
-      handleAddProductCategoryRelation(){
-        if(this.selectProductCate===null||this.selectProductCate.length===0){
+      handleAddProductCategoryRelation() {
+        if (this.selectProductCate === null || this.selectProductCate.length === 0) {
           this.$message({
             message: '请先选择商品分类',
             type: 'warning'
@@ -317,14 +318,14 @@
           return
         }
         this.coupon.productCategoryRelationList.push(this.getProductCateByIds(this.selectProductCate));
-        this.selectProductCate=[];
+        this.selectProductCate = [];
       },
-      handleDeleteProductCateRelation(index,row){
-        this.coupon.productCategoryRelationList.splice(index,1);
+      handleDeleteProductCateRelation(index, row) {
+        this.coupon.productCategoryRelationList.splice(index, 1);
       },
-      getProductById(id){
-        for(let i=0;i<this.selectProductOptions.length;i++){
-          if(id===this.selectProductOptions[i].productId){
+      getProductById(id) {
+        for (let i = 0; i < this.selectProductOptions.length; i++) {
+          if (id === this.selectProductOptions[i].productId) {
             return this.selectProductOptions[i];
           }
         }
@@ -345,7 +346,7 @@
           }
         });
       },
-      getProductCateByIds(ids){
+      getProductCateByIds(ids) {
         let name;
         let parentName;
         for (let i = 0; i < this.productCateOptions.length; i++) {

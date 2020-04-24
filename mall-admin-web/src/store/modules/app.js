@@ -27,13 +27,13 @@ const app = {
     }
   },
   actions: {
-    ToggleSideBar: ({ commit }) => {
+    ToggleSideBar: ({commit}) => {
       commit('TOGGLE_SIDEBAR')
     },
-    CloseSideBar({ commit }, { withoutAnimation }) {
+    CloseSideBar({commit}, {withoutAnimation}) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
     },
-    ToggleDevice({ commit }, device) {
+    ToggleDevice({commit}, device) {
       commit('TOGGLE_DEVICE', device)
     }
   }

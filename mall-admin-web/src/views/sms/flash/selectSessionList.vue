@@ -39,6 +39,7 @@
 <script>
   import {fetchSelectList} from '@/api/flashSession';
   import {formatDate} from '@/utils/date';
+
   export default {
     name: 'selectSessionList',
     data() {
@@ -50,7 +51,7 @@
     created() {
       this.getList();
     },
-    filters:{
+    filters: {
       formatTime(time) {
         if (time == null || time === '') {
           return 'N/A';
@@ -60,13 +61,16 @@
       }
     },
     methods: {
-      handleShowRelation(index,row){
-        this.$router.push({path:'/sms/flashProductRelation',query:{
-          flashPromotionId:this.$route.query.flashPromotionId, flashPromotionSessionId:row.id}})
+      handleShowRelation(index, row) {
+        this.$router.push({
+          path: '/sms/flashProductRelation', query: {
+            flashPromotionId: this.$route.query.flashPromotionId, flashPromotionSessionId: row.id
+          }
+        })
       },
       getList() {
         this.listLoading = true;
-        fetchSelectList({flashPromotionId:this.$route.query.flashPromotionId}).then(response => {
+        fetchSelectList({flashPromotionId: this.$route.query.flashPromotionId}).then(response => {
           this.listLoading = false;
           this.list = response.data;
         });

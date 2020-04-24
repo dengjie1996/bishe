@@ -112,7 +112,7 @@
           <el-input v-model="admin.email" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="密码：">
-          <el-input v-model="admin.password"  type="password" style="width: 250px"></el-input>
+          <el-input v-model="admin.password" type="password" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="备注：">
           <el-input v-model="admin.note"
@@ -152,7 +152,7 @@
   </div>
 </template>
 <script>
-  import {fetchList,createAdmin,updateAdmin,updateStatus,deleteAdmin,getRoleByAdmin,allocRole} from '@/api/login';
+  import {fetchList, createAdmin, updateAdmin, updateStatus, deleteAdmin, getRoleByAdmin, allocRole} from '@/api/login';
   import {fetchAllRoleList} from '@/api/role';
   import {formatDate} from '@/utils/date';
 
@@ -182,9 +182,9 @@
         admin: Object.assign({}, defaultAdmin),
         isEdit: false,
         allocDialogVisible: false,
-        allocRoleIds:[],
-        allRoleList:[],
-        allocAdminId:null
+        allocRoleIds: [],
+        allRoleList: [],
+        allocAdminId: null
       }
     },
     created() {
@@ -220,7 +220,7 @@
       handleAdd() {
         this.dialogVisible = true;
         this.isEdit = false;
-        this.admin = Object.assign({},defaultAdmin);
+        this.admin = Object.assign({}, defaultAdmin);
       },
       handleStatusChange(index, row) {
         this.$confirm('是否要修改该状态?', '提示', {
@@ -260,7 +260,7 @@
       handleUpdate(index, row) {
         this.dialogVisible = true;
         this.isEdit = true;
-        this.admin = Object.assign({},row);
+        this.admin = Object.assign({}, row);
       },
       handleDialogConfirm() {
         this.$confirm('是否要确认?', '提示', {
@@ -269,12 +269,12 @@
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            updateAdmin(this.admin.id,this.admin).then(response => {
+            updateAdmin(this.admin.id, this.admin).then(response => {
               this.$message({
                 message: '修改成功！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           } else {
@@ -283,13 +283,13 @@
                 message: '添加成功！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           }
         })
       },
-      handleAllocDialogConfirm(){
+      handleAllocDialogConfirm() {
         this.$confirm('是否要确认?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -307,7 +307,7 @@
           })
         })
       },
-      handleSelectRole(index,row){
+      handleSelectRole(index, row) {
         this.allocAdminId = row.id;
         this.allocDialogVisible = true;
         this.getRoleListByAdmin(row.id);
@@ -328,9 +328,9 @@
       getRoleListByAdmin(adminId) {
         getRoleByAdmin(adminId).then(response => {
           let allocRoleList = response.data;
-          this.allocRoleIds=[];
-          if(allocRoleList!=null&&allocRoleList.length>0){
-            for(let i=0;i<allocRoleList.length;i++){
+          this.allocRoleIds = [];
+          if (allocRoleList != null && allocRoleList.length > 0) {
+            for (let i = 0; i < allocRoleList.length; i++) {
               this.allocRoleIds.push(allocRoleList[i].id);
             }
           }

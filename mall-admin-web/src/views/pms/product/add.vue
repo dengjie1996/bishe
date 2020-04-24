@@ -3,9 +3,10 @@
 </template>
 <script>
   import ProductDetail from './components/ProductDetail'
+
   export default {
     name: 'addProduct',
-    components: { ProductDetail }
+    components: {ProductDetail}
   }
 </script>
 <style>

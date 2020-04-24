@@ -37,13 +37,15 @@
       <el-form-item>
         <el-button
           @click="confirm('orderSettingForm')"
-          type="primary">提交</el-button>
+          type="primary">提交
+        </el-button>
       </el-form-item>
     </el-form>
   </el-card>
 </template>
 <script>
-  import {getOrderSetting,updateOrderSetting} from '@/api/orderSetting';
+  import {getOrderSetting, updateOrderSetting} from '@/api/orderSetting';
+
   const defaultOrderSetting = {
     id: null,
     flashOrderOvertime: 0,
@@ -56,7 +58,7 @@
     if (!value) {
       return callback(new Error('时间不能为空'));
     }
-    console.log("checkTime",value);
+    console.log("checkTime", value);
     let intValue = parseInt(value);
     if (!Number.isInteger(intValue)) {
       return callback(new Error('请输入数字值'));
@@ -69,19 +71,19 @@
       return {
         orderSetting: Object.assign({}, defaultOrderSetting),
         rules: {
-          flashOrderOvertime:{validator: checkTime, trigger: 'blur' },
-          normalOrderOvertime:{validator: checkTime, trigger: 'blur' },
-          confirmOvertime: {validator: checkTime, trigger: 'blur' },
-          finishOvertime: {validator: checkTime, trigger: 'blur' },
-          commentOvertime:{validator: checkTime, trigger: 'blur' }
+          flashOrderOvertime: {validator: checkTime, trigger: 'blur'},
+          normalOrderOvertime: {validator: checkTime, trigger: 'blur'},
+          confirmOvertime: {validator: checkTime, trigger: 'blur'},
+          finishOvertime: {validator: checkTime, trigger: 'blur'},
+          commentOvertime: {validator: checkTime, trigger: 'blur'}
         }
       }
     },
-    created(){
+    created() {
       this.getDetail();
     },
-    methods:{
-      confirm(formName){
+    methods: {
+      confirm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$confirm('是否要提交修改?', '提示', {
@@ -89,11 +91,11 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              updateOrderSetting(1,this.orderSetting).then(response=>{
+              updateOrderSetting(1, this.orderSetting).then(response => {
                 this.$message({
                   type: 'success',
                   message: '提交成功!',
-                  duration:1000
+                  duration: 1000
                 });
               })
             });
@@ -106,9 +108,9 @@
           }
         });
       },
-      getDetail(){
-        getOrderSetting(1).then(response=>{
-          this.orderSetting=response.data;
+      getDetail() {
+        getOrderSetting(1).then(response => {
+          this.orderSetting = response.data;
         })
       }
     }

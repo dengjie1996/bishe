@@ -88,8 +88,9 @@
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
-            size="mini"
-            @click="handleViewDetail(scope.$index, scope.row)">查看详情</el-button>
+              size="mini"
+              @click="handleViewDetail(scope.$index, scope.row)">查看详情
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -130,7 +131,8 @@
 </template>
 <script>
   import {formatDate} from '@/utils/date';
-  import {fetchList,deleteApply} from '@/api/returnApply';
+  import {fetchList, deleteApply} from '@/api/returnApply';
+
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
@@ -141,7 +143,7 @@
     handleMan: null,
     handleTime: null
   };
-  const defaultStatusOptions=[
+  const defaultStatusOptions = [
     {
       label: '待处理',
       value: 0
@@ -160,16 +162,16 @@
     }
   ];
   export default {
-    name:'returnApplyList',
+    name: 'returnApplyList',
     data() {
       return {
-        listQuery:Object.assign({},defaultListQuery),
-        statusOptions: Object.assign({},defaultStatusOptions),
-        list:null,
-        total:null,
-        listLoading:false,
-        multipleSelection:[],
-        operateType:1,
+        listQuery: Object.assign({}, defaultListQuery),
+        statusOptions: Object.assign({}, defaultStatusOptions),
+        list: null,
+        total: null,
+        listLoading: false,
+        multipleSelection: [],
+        operateType: 1,
         operateOptions: [
           {
             label: "批量删除",
@@ -178,30 +180,30 @@
         ],
       }
     },
-    created(){
+    created() {
       this.getList();
     },
-    filters:{
+    filters: {
       formatTime(time) {
-        if(time==null||time===''){
+        if (time == null || time === '') {
           return 'N/A';
         }
         let date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
       },
-      formatStatus(status){
-        for(let i=0;i<defaultStatusOptions.length;i++){
-          if(status===defaultStatusOptions[i].value){
+      formatStatus(status) {
+        for (let i = 0; i < defaultStatusOptions.length; i++) {
+          if (status === defaultStatusOptions[i].value) {
             return defaultStatusOptions[i].label;
           }
         }
       },
-      formatReturnAmount(row){
-        return row.productRealPrice*row.productCount;
+      formatReturnAmount(row) {
+        return row.productRealPrice * row.productCount;
       }
     },
-    methods:{
-      handleSelectionChange(val){
+    methods: {
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleResetSearch() {
@@ -211,11 +213,11 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleViewDetail(index,row){
-        this.$router.push({path:'/oms/returnApplyDetail',query:{id:row.id}})
+      handleViewDetail(index, row) {
+        this.$router.push({path: '/oms/returnApplyDetail', query: {id: row.id}})
       },
-      handleBatchOperate(){
-        if(this.multipleSelection==null||this.multipleSelection.length<1){
+      handleBatchOperate() {
+        if (this.multipleSelection == null || this.multipleSelection.length < 1) {
           this.$message({
             message: '请选择要操作的申请',
             type: 'warning',
@@ -223,7 +225,7 @@
           });
           return;
         }
-        if(this.operateType===1){
+        if (this.operateType === 1) {
           //批量删除
           this.$confirm('是否要进行删除操作?', '提示', {
             confirmButtonText: '确定',
@@ -231,12 +233,12 @@
             type: 'warning'
           }).then(() => {
             let params = new URLSearchParams();
-            let ids=[];
-            for(let i=0;i<this.multipleSelection.length;i++){
+            let ids = [];
+            for (let i = 0; i < this.multipleSelection.length; i++) {
               ids.push(this.multipleSelection[i].id);
             }
-            params.append("ids",ids);
-            deleteApply(params).then(response=>{
+            params.append("ids", ids);
+            deleteApply(params).then(response => {
               this.getList();
               this.$message({
                 type: 'success',
@@ -246,17 +248,17 @@
           })
         }
       },
-      handleSizeChange(val){
+      handleSizeChange(val) {
         this.listQuery.pageNum = 1;
         this.listQuery.pageSize = val;
         this.getList();
       },
-      handleCurrentChange(val){
+      handleCurrentChange(val) {
         this.listQuery.pageNum = val;
         this.getList();
       },
-      getList(){
-        this.listLoading=true;
+      getList() {
+        this.listLoading = true;
         fetchList(this.listQuery).then(response => {
           this.listLoading = false;
           this.list = response.data.list;

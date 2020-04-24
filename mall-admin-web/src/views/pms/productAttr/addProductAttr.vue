@@ -4,9 +4,10 @@
 
 <script>
   import ProductAttrDetail from './components/ProductAttrDetail'
+
   export default {
     name: 'addProductAttr',
-    components: { ProductAttrDetail }
+    components: {ProductAttrDetail}
   }
 </script>
 

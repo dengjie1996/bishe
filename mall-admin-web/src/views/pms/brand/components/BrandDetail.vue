@@ -45,7 +45,8 @@
 <script>
   import {createBrand, getBrand, updateBrand} from '@/api/brand'
   import SingleUpload from '@/components/Upload/singleUpload'
-  const defaultBrand={
+
+  const defaultBrand = {
     bigPic: '',
     brandStory: '',
     factoryStatus: 0,
@@ -57,7 +58,7 @@
   };
   export default {
     name: 'BrandDetail',
-    components:{SingleUpload},
+    components: {SingleUpload},
     props: {
       isEdit: {
         type: Boolean,
@@ -66,7 +67,7 @@
     },
     data() {
       return {
-        brand:Object.assign({}, defaultBrand),
+        brand: Object.assign({}, defaultBrand),
         rules: {
           name: [
             {required: true, message: '请输入品牌名称', trigger: 'blur'},
@@ -86,8 +87,8 @@
         getBrand(this.$route.query.id).then(response => {
           this.brand = response.data;
         });
-      }else{
-        this.brand = Object.assign({},defaultBrand);
+      } else {
+        this.brand = Object.assign({}, defaultBrand);
       }
     },
     methods: {
@@ -105,18 +106,18 @@
                   this.$message({
                     message: '修改成功',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                   this.$router.back();
                 });
               } else {
                 createBrand(this.brand).then(response => {
                   this.$refs[formName].resetFields();
-                  this.brand = Object.assign({},defaultBrand);
+                  this.brand = Object.assign({}, defaultBrand);
                   this.$message({
                     message: '提交成功',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                 });
               }
@@ -126,7 +127,7 @@
             this.$message({
               message: '验证失败',
               type: 'error',
-              duration:1000
+              duration: 1000
             });
             return false;
           }
@@ -134,7 +135,7 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.brand = Object.assign({},defaultBrand);
+        this.brand = Object.assign({}, defaultBrand);
       }
     }
   }

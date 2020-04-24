@@ -78,14 +78,17 @@
           <template slot-scope="scope">
             <el-button size="mini"
                        type="text"
-                       @click="handleView(scope.$index, scope.row)">查看</el-button>
+                       @click="handleView(scope.$index, scope.row)">查看
+            </el-button>
             <el-button size="mini"
                        type="text"
                        @click="handleUpdate(scope.$index, scope.row)">
-              编辑</el-button>
+              编辑
+            </el-button>
             <el-button size="mini"
                        type="text"
-                       @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                       @click="handleDelete(scope.$index, scope.row)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -105,15 +108,16 @@
   </div>
 </template>
 <script>
-  import {fetchList,deleteCoupon} from '@/api/coupon';
+  import {fetchList, deleteCoupon} from '@/api/coupon';
   import {formatDate} from '@/utils/date';
+
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
     name: null,
     type: null
   };
-  const defaultTypeOptions=[
+  const defaultTypeOptions = [
     {
       label: '全场赠券',
       value: 0
@@ -132,65 +136,65 @@
     }
   ];
   export default {
-    name:'couponList',
+    name: 'couponList',
     data() {
       return {
-        listQuery:Object.assign({},defaultListQuery),
-        typeOptions:Object.assign({},defaultTypeOptions),
-        list:null,
-        total:null,
-        listLoading:false,
-        multipleSelection:[]
+        listQuery: Object.assign({}, defaultListQuery),
+        typeOptions: Object.assign({}, defaultTypeOptions),
+        list: null,
+        total: null,
+        listLoading: false,
+        multipleSelection: []
       }
     },
-    created(){
+    created() {
       this.getList();
     },
-    filters:{
-      formatType(type){
-        for(let i=0;i<defaultTypeOptions.length;i++){
-          if(type===defaultTypeOptions[i].value){
+    filters: {
+      formatType(type) {
+        for (let i = 0; i < defaultTypeOptions.length; i++) {
+          if (type === defaultTypeOptions[i].value) {
             return defaultTypeOptions[i].label;
           }
         }
         return '';
       },
-      formatUseType(useType){
-        if(useType===0){
+      formatUseType(useType) {
+        if (useType === 0) {
           return '全场通用';
-        }else if(useType===1){
+        } else if (useType === 1) {
           return '指定分类';
-        }else{
+        } else {
           return '指定商品';
         }
       },
-      formatPlatform(platform){
-        if(platform===1){
+      formatPlatform(platform) {
+        if (platform === 1) {
           return '移动平台';
-        }else if(platform===2){
+        } else if (platform === 2) {
           return 'PC平台';
-        }else{
+        } else {
           return '全平台';
         }
       },
-      formatDate(time){
-        if(time==null||time===''){
+      formatDate(time) {
+        if (time == null || time === '') {
           return 'N/A';
         }
         let date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd')
       },
-      formatStatus(endTime){
+      formatStatus(endTime) {
         let now = new Date().getTime();
         let endDate = new Date(endTime);
-        if(endDate>now){
+        if (endDate > now) {
           return '未过期'
-        }else{
+        } else {
           return '已过期';
         }
       }
     },
-    methods:{
+    methods: {
       handleResetSearch() {
         this.listQuery = Object.assign({}, defaultListQuery);
       },
@@ -198,7 +202,7 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleSizeChange(val) {
@@ -210,7 +214,7 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleAdd(){
+      handleAdd() {
         this.$router.push({path: '/sms/addCoupon'})
       },
       handleView(index, row) {
@@ -225,7 +229,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deleteCoupon(row.id).then(response=>{
+          deleteCoupon(row.id).then(response => {
             this.$message({
               type: 'success',
               message: '删除成功!'
@@ -234,9 +238,9 @@
           });
         })
       },
-      getList(){
-        this.listLoading=true;
-        fetchList(this.listQuery).then(response=>{
+      getList() {
+        this.listLoading = true;
+        fetchList(this.listQuery).then(response => {
           this.listLoading = false;
           this.list = response.data.list;
           this.total = response.data.total;

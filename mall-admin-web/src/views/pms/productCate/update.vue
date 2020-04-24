@@ -3,9 +3,10 @@
 </template>
 <script>
   import ProductCateDetail from './components/ProductCateDetail'
+
   export default {
     name: 'updateProductCate',
-    components: { ProductCateDetail }
+    components: {ProductCateDetail}
   }
 </script>
 <style>

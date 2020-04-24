@@ -78,7 +78,7 @@
     },
     data() {
       return {
-        hasEditCreated:false,
+        hasEditCreated: false,
         //选中商品分类的值
         selectProductCateValue: [],
         productCateOptions: [],
@@ -100,37 +100,37 @@
       this.getProductCateList();
       this.getBrandList();
     },
-    computed:{
+    computed: {
       //商品的编号
-      productId(){
+      productId() {
         return this.value.id;
       }
     },
     watch: {
-      productId:function(newValue){
-        if(!this.isEdit)return;
-        if(this.hasEditCreated)return;
-        if(newValue===undefined||newValue==null||newValue===0)return;
+      productId: function (newValue) {
+        if (!this.isEdit) return;
+        if (this.hasEditCreated) return;
+        if (newValue === undefined || newValue == null || newValue === 0) return;
         this.handleEditCreated();
       },
       selectProductCateValue: function (newValue) {
         if (newValue != null && newValue.length === 2) {
           this.value.productCategoryId = newValue[1];
-          this.value.productCategoryName= this.getCateNameById(this.value.productCategoryId);
+          this.value.productCategoryName = this.getCateNameById(this.value.productCategoryId);
         } else {
           this.value.productCategoryId = null;
-          this.value.productCategoryName=null;
+          this.value.productCategoryName = null;
         }
       }
     },
     methods: {
       //处理编辑逻辑
-      handleEditCreated(){
-        if(this.value.productCategoryId!=null){
+      handleEditCreated() {
+        if (this.value.productCategoryId != null) {
           this.selectProductCateValue.push(this.value.cateParentId);
           this.selectProductCateValue.push(this.value.productCategoryId);
         }
-        this.hasEditCreated=true;
+        this.hasEditCreated = true;
       },
       getProductCateList() {
         fetchListWithChildren().then(response => {
@@ -156,19 +156,19 @@
           }
         });
       },
-      getCateNameById(id){
-        let name=null;
-        for(let i=0;i<this.productCateOptions.length;i++){
-          for(let j=0;j<this.productCateOptions[i].children.length;j++){
-            if(this.productCateOptions[i].children[j].value===id){
-              name=this.productCateOptions[i].children[j].label;
+      getCateNameById(id) {
+        let name = null;
+        for (let i = 0; i < this.productCateOptions.length; i++) {
+          for (let j = 0; j < this.productCateOptions[i].children.length; j++) {
+            if (this.productCateOptions[i].children[j].value === id) {
+              name = this.productCateOptions[i].children[j].label;
               return name;
             }
           }
         }
         return name;
       },
-      handleNext(formName){
+      handleNext(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$emit('nextStep');
@@ -176,7 +176,7 @@
             this.$message({
               message: '验证失败',
               type: 'error',
-              duration:1000
+              duration: 1000
             });
             return false;
           }

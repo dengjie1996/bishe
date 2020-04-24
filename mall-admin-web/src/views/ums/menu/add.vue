@@ -3,9 +3,10 @@
 </template>
 <script>
   import MenuDetail from './components/MenuDetail'
+
   export default {
     name: 'addMenu',
-    components: { MenuDetail }
+    components: {MenuDetail}
   }
 </script>
 <style>
