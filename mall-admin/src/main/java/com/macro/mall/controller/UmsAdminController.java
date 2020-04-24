@@ -85,7 +85,7 @@ public class UmsAdminController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult getAdminInfo(Principal principal) {
-        if(principal==null){
+        if (principal == null) {
             return CommonResult.unauthorized(null);
         }
         String username = principal.getName();
@@ -166,10 +166,10 @@ public class UmsAdminController {
     @ApiOperation("修改帐号状态")
     @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateStatus(@PathVariable Long id,@RequestParam(value = "status") Integer status) {
+    public CommonResult updateStatus(@PathVariable Long id, @RequestParam(value = "status") Integer status) {
         UmsAdmin umsAdmin = new UmsAdmin();
         umsAdmin.setStatus(status);
-        int count = adminService.update(id,umsAdmin);
+        int count = adminService.update(id, umsAdmin);
         if (count > 0) {
             return CommonResult.success(count);
         }

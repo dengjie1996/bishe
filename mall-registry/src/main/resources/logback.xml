@@ -2,8 +2,8 @@
 <configuration>
     <!-- 定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
     <property name="LOG_HOME" value="/var/log/mall/registry"/>
-    <property name="contextName" value="registry" />
-    <jmxConfigurator />
+    <property name="contextName" value="registry"/>
+    <jmxConfigurator/>
 
     <!-- 控制台输出 -->
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
@@ -40,13 +40,13 @@
     <!--logback 异步写入方式-->
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE"/>
     </appender>
 
     <!-- 用来设置某一个包或者具体的某一个类的日志打印级别，包名要与实际项目一致 -->
     <!-- 正式生产环境上，各个包的将设置为ERROR -->
-    <logger name="com.framework" level="INFO" />  <!-- 将级别为“DEBUG”及大于“DEBUG”的日志信息传递给root处理，本身并不打印 -->
-    <logger name="com.tinet.tcc.app" level="INFO" />
+    <logger name="com.framework" level="INFO"/>  <!-- 将级别为“DEBUG”及大于“DEBUG”的日志信息传递给root处理，本身并不打印 -->
+    <logger name="com.tinet.tcc.app" level="INFO"/>
 
     <!--引入的包的日志打印级别 -->
     <logger name="org.springframework" level="ERROR"/>
@@ -56,7 +56,7 @@
 
 
     <root level="INFO"> <!-- root将级别为“INFO”及大于“INFO”的日志信息交给已经配置好的名为“Console”的appender处理，“Console”appender将信息打印到Console； -->
-        <appender-ref ref="Console" /> <!-- 标识这个appender将会添加到这个logger -->
-        <appender-ref ref="FILE" />
+        <appender-ref ref="Console"/> <!-- 标识这个appender将会添加到这个logger -->
+        <appender-ref ref="FILE"/>
     </root>
 </configuration>

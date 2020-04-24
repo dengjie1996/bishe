@@ -245,7 +245,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
 
     @Override
     public Integer cancelTimeOutOrder() {
-        Integer count=0;
+        Integer count = 0;
         OmsOrderSetting orderSetting = orderSettingMapper.selectByPrimaryKey(1L);
         //查询超时、未支付的订单及订单详情
         List<OmsOrderDetail> timeOutOrders = portalOrderDao.getTimeOutOrders(orderSetting.getNormalOrderOvertime());
@@ -616,7 +616,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
      */
     private boolean hasStock(List<CartPromotionItem> cartPromotionItemList) {
         for (CartPromotionItem cartPromotionItem : cartPromotionItemList) {
-            if (cartPromotionItem.getRealStock()==null||cartPromotionItem.getRealStock() <= 0) {
+            if (cartPromotionItem.getRealStock() == null || cartPromotionItem.getRealStock() <= 0) {
                 return false;
             }
         }

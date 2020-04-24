@@ -48,7 +48,7 @@ public class UmsPermissionServiceImpl implements UmsPermissionService {
         List<UmsPermission> permissionList = permissionMapper.selectByExample(new UmsPermissionExample());
         List<UmsPermissionNode> result = permissionList.stream()
                 .filter(permission -> permission.getPid().equals(0L))
-                .map(permission -> covert(permission,permissionList)).collect(Collectors.toList());
+                .map(permission -> covert(permission, permissionList)).collect(Collectors.toList());
         return result;
     }
 
@@ -61,12 +61,12 @@ public class UmsPermissionServiceImpl implements UmsPermissionService {
      * 将权限转换为带有子级的权限对象
      * 当找不到子级权限的时候map操作不会再递归调用covert
      */
-    private UmsPermissionNode covert(UmsPermission permission,List<UmsPermission> permissionList){
+    private UmsPermissionNode covert(UmsPermission permission, List<UmsPermission> permissionList) {
         UmsPermissionNode node = new UmsPermissionNode();
-        BeanUtils.copyProperties(permission,node);
+        BeanUtils.copyProperties(permission, node);
         List<UmsPermissionNode> children = permissionList.stream()
                 .filter(subPermission -> subPermission.getPid().equals(permission.getId()))
-                .map(subPermission -> covert(subPermission,permissionList)).collect(Collectors.toList());
+                .map(subPermission -> covert(subPermission, permissionList)).collect(Collectors.toList());
         node.setChildren(children);
         return node;
     }

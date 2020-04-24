@@ -3,11 +3,14 @@
 <mapper namespace="com.macro.mall.portal.dao.SmsCouponHistoryDao">
     <resultMap id="couponHistoryDetailMap" type="com.macro.mall.portal.domain.SmsCouponHistoryDetail"
                extends="com.macro.mall.mapper.SmsCouponHistoryMapper.BaseResultMap">
-        <association property="coupon" resultMap="com.macro.mall.mapper.SmsCouponMapper.BaseResultMap" columnPrefix="c_">
+        <association property="coupon" resultMap="com.macro.mall.mapper.SmsCouponMapper.BaseResultMap"
+                     columnPrefix="c_">
         </association>
-        <collection property="productRelationList" columnPrefix="cpr_" resultMap="com.macro.mall.mapper.SmsCouponProductRelationMapper.BaseResultMap">
+        <collection property="productRelationList" columnPrefix="cpr_"
+                    resultMap="com.macro.mall.mapper.SmsCouponProductRelationMapper.BaseResultMap">
         </collection>
-        <collection property="categoryRelationList" columnPrefix="cpcr_" resultMap="com.macro.mall.mapper.SmsCouponProductCategoryRelationMapper.BaseResultMap">
+        <collection property="categoryRelationList" columnPrefix="cpcr_"
+                    resultMap="com.macro.mall.mapper.SmsCouponProductCategoryRelationMapper.BaseResultMap">
         </collection>
     </resultMap>
     <select id="getDetailList" resultMap="couponHistoryDetailMap">

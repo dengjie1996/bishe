@@ -22,6 +22,7 @@ public class UmsMemberReceiveAddressServiceImpl implements UmsMemberReceiveAddre
     private UmsMemberService memberService;
     @Autowired
     private UmsMemberReceiveAddressMapper addressMapper;
+
     @Override
     public int add(UmsMemberReceiveAddress address) {
         UmsMember currentMember = memberService.getCurrentMember();
@@ -43,7 +44,7 @@ public class UmsMemberReceiveAddressServiceImpl implements UmsMemberReceiveAddre
         UmsMember currentMember = memberService.getCurrentMember();
         UmsMemberReceiveAddressExample example = new UmsMemberReceiveAddressExample();
         example.createCriteria().andMemberIdEqualTo(currentMember.getId()).andIdEqualTo(id);
-        return addressMapper.updateByExampleSelective(address,example);
+        return addressMapper.updateByExampleSelective(address, example);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class UmsMemberReceiveAddressServiceImpl implements UmsMemberReceiveAddre
         UmsMemberReceiveAddressExample example = new UmsMemberReceiveAddressExample();
         example.createCriteria().andMemberIdEqualTo(currentMember.getId()).andIdEqualTo(id);
         List<UmsMemberReceiveAddress> addressList = addressMapper.selectByExample(example);
-        if(!CollectionUtils.isEmpty(addressList)){
+        if (!CollectionUtils.isEmpty(addressList)) {
             return addressList.get(0);
         }
         return null;

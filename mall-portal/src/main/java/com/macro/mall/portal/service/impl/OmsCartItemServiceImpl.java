@@ -37,7 +37,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
     @Override
     public int add(OmsCartItem cartItem) {
         int count;
-        UmsMember currentMember =memberService.getCurrentMember();
+        UmsMember currentMember = memberService.getCurrentMember();
         cartItem.setMemberId(currentMember.getId());
         cartItem.setMemberNickname(currentMember.getNickname());
         cartItem.setDeleteStatus(0);
@@ -81,7 +81,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
     public List<CartPromotionItem> listPromotion(Long memberId) {
         List<OmsCartItem> cartItemList = list(memberId);
         List<CartPromotionItem> cartPromotionItemList = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(cartItemList)){
+        if (!CollectionUtils.isEmpty(cartItemList)) {
             cartPromotionItemList = promotionService.calcCartPromotion(cartItemList);
         }
         return cartPromotionItemList;
@@ -130,6 +130,6 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
         record.setDeleteStatus(1);
         OmsCartItemExample example = new OmsCartItemExample();
         example.createCriteria().andMemberIdEqualTo(memberId);
-        return cartItemMapper.updateByExampleSelective(record,example);
+        return cartItemMapper.updateByExampleSelective(record, example);
     }
 }

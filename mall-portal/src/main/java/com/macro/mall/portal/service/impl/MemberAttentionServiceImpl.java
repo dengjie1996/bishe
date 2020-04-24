@@ -30,7 +30,7 @@ public class MemberAttentionServiceImpl implements MemberAttentionService {
 
     @Override
     public int delete(Long memberId, Long brandId) {
-        return memberBrandAttentionRepository.deleteByMemberIdAndBrandId(memberId,brandId);
+        return memberBrandAttentionRepository.deleteByMemberIdAndBrandId(memberId, brandId);
     }
 
     @Override

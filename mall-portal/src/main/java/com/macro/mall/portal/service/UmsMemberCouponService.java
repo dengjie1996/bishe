@@ -20,6 +20,7 @@ public interface UmsMemberCouponService {
 
     /**
      * 获取优惠券列表
+     *
      * @param useStatus 优惠券的使用状态
      */
     List<SmsCouponHistory> list(Integer useStatus);

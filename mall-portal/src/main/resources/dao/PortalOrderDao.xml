@@ -50,18 +50,18 @@
     <update id="updateSkuStock">
         UPDATE pms_sku_stock
         SET
-            stock = CASE id
-            <foreach collection="itemList" item="item">
-              WHEN #{item.productSkuId} THEN stock - #{item.productQuantity}
-            </foreach>
-            END,
-            lock_stock = CASE id
-            <foreach collection="itemList" item="item">
-              WHEN #{item.productSkuId} THEN lock_stock - #{item.productQuantity}
-            </foreach>
-            END
+        stock = CASE id
+        <foreach collection="itemList" item="item">
+            WHEN #{item.productSkuId} THEN stock - #{item.productQuantity}
+        </foreach>
+        END,
+        lock_stock = CASE id
+        <foreach collection="itemList" item="item">
+            WHEN #{item.productSkuId} THEN lock_stock - #{item.productQuantity}
+        </foreach>
+        END
         WHERE
-            id IN
+        id IN
         <foreach collection="itemList" item="item" separator="," open="(" close=")">
             #{item.productSkuId}
         </foreach>

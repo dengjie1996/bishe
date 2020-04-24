@@ -22,16 +22,19 @@ public class MallSearchApplicationTests {
     private EsProductDao productDao;
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
+
     @Test
     public void contextLoads() {
     }
+
     @Test
-    public void testGetAllEsProductList(){
+    public void testGetAllEsProductList() {
         List<EsProduct> esProductList = productDao.getAllEsProductList(null);
         System.out.print(esProductList);
     }
+
     @Test
-    public void testEsProductMapping(){
+    public void testEsProductMapping() {
         elasticsearchTemplate.putMapping(EsProduct.class);
         Map mapping = elasticsearchTemplate.getMapping(EsProduct.class);
         System.out.println(mapping);

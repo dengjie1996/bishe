@@ -22,12 +22,13 @@ import java.util.List;
 public class UmsPermissionController {
     @Autowired
     private UmsPermissionService permissionService;
+
     @ApiOperation("添加权限")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult create(@RequestBody UmsPermission permission) {
         int count = permissionService.create(permission);
-        if(count>0){
+        if (count > 0) {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
@@ -37,8 +38,8 @@ public class UmsPermissionController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Long id, @RequestBody UmsPermission permission) {
-        int count = permissionService.update(id,permission);
-        if(count>0){
+        int count = permissionService.update(id, permission);
+        if (count > 0) {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
@@ -49,7 +50,7 @@ public class UmsPermissionController {
     @ResponseBody
     public CommonResult delete(@RequestParam("ids") List<Long> ids) {
         int count = permissionService.delete(ids);
-        if(count>0){
+        if (count > 0) {
             return CommonResult.success(count);
         }
         return CommonResult.failed();

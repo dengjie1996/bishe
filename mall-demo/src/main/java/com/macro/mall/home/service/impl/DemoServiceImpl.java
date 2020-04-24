@@ -28,14 +28,14 @@ public class DemoServiceImpl implements DemoService {
     @Override
     public int createBrand(PmsBrandDto pmsBrandDto) {
         PmsBrand pmsBrand = new PmsBrand();
-        BeanUtils.copyProperties(pmsBrandDto,pmsBrand);
+        BeanUtils.copyProperties(pmsBrandDto, pmsBrand);
         return brandMapper.insertSelective(pmsBrand);
     }
 
     @Override
     public int updateBrand(Long id, PmsBrandDto pmsBrandDto) {
         PmsBrand pmsBrand = new PmsBrand();
-        BeanUtils.copyProperties(pmsBrandDto,pmsBrand);
+        BeanUtils.copyProperties(pmsBrandDto, pmsBrand);
         pmsBrand.setId(id);
         return brandMapper.updateByPrimaryKeySelective(pmsBrand);
     }
