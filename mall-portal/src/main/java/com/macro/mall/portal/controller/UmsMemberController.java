@@ -2,6 +2,7 @@ package com.macro.mall.portal.controller;
 
 import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.portal.service.UmsMemberService;
+import com.macro.mall.portal.service.SendMailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class UmsMemberController {
     private String tokenHead;
     @Autowired
     private UmsMemberService memberService;
+    @Autowired
+    private SendMailService sendMailService;
 
     @ApiOperation("会员注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -39,7 +42,7 @@ public class UmsMemberController {
                                  @RequestParam String telephone,
                                  @RequestParam String authCode) {
         memberService.register(username, password, telephone, authCode);
-        return CommonResult.success(null,"注册成功");
+        return CommonResult.success(null, "注册成功");
     }
 
     @ApiOperation("会员登录")
@@ -60,19 +63,23 @@ public class UmsMemberController {
     @ApiOperation("获取验证码")
     @RequestMapping(value = "/getAuthCode", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult getAuthCode(@RequestParam String telephone) {
-        String authCode = memberService.generateAuthCode(telephone);
-        return CommonResult.success(authCode,"获取验证码成功");
+    public CommonResult getAuthCode(@RequestParam String email) {
+        String authCode = memberService.generateAuthCode(email);
+        boolean result = sendMailService.send(email, "商城验证码", "您本次登录的验证码是 ：" + authCode);
+        if (result) {
+            return CommonResult.success("获取验证码成功，请注意邮箱信息");
+        }
+        return CommonResult.failed("获取验证码失败，请稍后重试");
     }
 
     @ApiOperation("修改密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updatePassword(@RequestParam String telephone,
-                                 @RequestParam String password,
-                                 @RequestParam String authCode) {
-        memberService.updatePassword(telephone,password,authCode);
-        return CommonResult.success(null,"密码修改成功");
+                                       @RequestParam String password,
+                                       @RequestParam String authCode) {
+        memberService.updatePassword(telephone, password, authCode);
+        return CommonResult.success(null, "密码修改成功");
     }
 
 

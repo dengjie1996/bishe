@@ -102,15 +102,15 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     }
 
     @Override
-    public String generateAuthCode(String telephone) {
+    public String generateAuthCode(String email) {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for(int i=0;i<6;i++){
             sb.append(random.nextInt(10));
         }
         //验证码绑定手机号并存储到redis
-        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE+telephone,sb.toString());
-        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE+telephone,AUTH_CODE_EXPIRE_SECONDS);
+        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE+email,sb.toString());
+        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE+email,AUTH_CODE_EXPIRE_SECONDS);
         return sb.toString();
     }
 

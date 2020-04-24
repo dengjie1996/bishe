@@ -19,6 +19,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
+ *
  */
 @Component
 public class EurekaStateChangeListener {
@@ -37,7 +38,7 @@ public class EurekaStateChangeListener {
 
     @EventListener
     public void listen(EurekaInstanceRenewedEvent event) {
-        logger.warn(" 服务续约 O_O : {}", event.toString());
+        logger.warn(" 服务续约 O_O : appName = {},serverId = {}", event.getAppName(), event.getServerId());
     }
 
     @EventListener

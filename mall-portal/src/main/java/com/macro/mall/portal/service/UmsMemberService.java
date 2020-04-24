@@ -1,6 +1,5 @@
 package com.macro.mall.portal.service;
 
-import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.model.UmsMember;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,7 @@ public interface UmsMemberService {
     /**
      * 生成验证码
      */
-    String generateAuthCode(String telephone);
+    String generateAuthCode(String email);
 
     /**
      * 修改密码

@@ -1,4 +1,13 @@
 spring:
+  mail:
+    #邮件协议smtp
+    host: smtp.qq.com
+    #发送者的邮件的用户名
+    username: 1280075151@qq.com
+    #使用的编码
+    default-encoding: utf-8
+    #移动端客户授权码(在邮箱中设置)
+    password: wrnwqlpletnufhed
   cloud:
     config:
       profile: dev #启用环境名称
@@ -12,9 +21,9 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://192.168.0.105:8001/eureka/
+      defaultZone: http://localhost:8001/eureka/
   instance:
     hostname: ${eureka.instance.ip-address} #决定服务跳转host，必须指定
-    ip-address: 192.168.0.104 #指定ip 可通过外网访问
+    ip-address: localhost #指定ip 可通过外网访问
     prefer-ip-address: true
     instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
