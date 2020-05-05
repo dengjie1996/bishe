@@ -52,7 +52,7 @@ public class MinioController {
                 minioClient.makeBucket(BUCKET_NAME);
                 minioClient.setBucketPolicy(BUCKET_NAME, "*.*", PolicyType.READ_ONLY);
             }
-            String filename = file.getOriginalFilename();
+            String filename = System.currentTimeMillis() + file.getOriginalFilename();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             // 设置存储对象名称
             String objectName = sdf.format(new Date()) + "/" + filename;
