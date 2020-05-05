@@ -1,8 +1,8 @@
 package com.macro.mall.portal.controller;
 
 import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.portal.service.UmsMemberService;
 import com.macro.mall.portal.service.SendMailService;
+import com.macro.mall.portal.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +54,10 @@ public class UmsMemberController {
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
-        Map<String, String> tokenMap = new HashMap<>();
+        Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("userName", memberService.getCurrentMember().getNickname());
         return CommonResult.success(tokenMap);
     }
 
