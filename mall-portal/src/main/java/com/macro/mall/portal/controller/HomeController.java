@@ -5,6 +5,7 @@ import com.macro.mall.model.CmsSubject;
 import com.macro.mall.model.PmsProduct;
 import com.macro.mall.model.PmsProductCategory;
 import com.macro.mall.portal.domain.HomeContentResult;
+import com.macro.mall.portal.service.HomeAdminService;
 import com.macro.mall.portal.service.HomeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页内容管理Controller
@@ -24,6 +26,8 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private HomeService homeService;
+    @Autowired
+    private HomeAdminService homeAdminService;
 
     @ApiOperation("首页内容页信息展示")
     @RequestMapping(value = "/content", method = RequestMethod.GET)
@@ -47,6 +51,14 @@ public class HomeController {
     @ResponseBody
     public CommonResult<List<PmsProductCategory>> getProductCateList(@PathVariable Long parentId) {
         List<PmsProductCategory> productCategoryList = homeService.getProductCateList(parentId);
+        return CommonResult.success(productCategoryList);
+    }
+
+    @ApiOperation("获取首页所有商品分类")
+    @RequestMapping(value = "/productCateAllList", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Map<String, List<PmsProductCategory>>> getProductCateAllList() {
+        Map<String, List<PmsProductCategory>> productCategoryList = homeService.getProductCateAllList();
         return CommonResult.success(productCategoryList);
     }
 

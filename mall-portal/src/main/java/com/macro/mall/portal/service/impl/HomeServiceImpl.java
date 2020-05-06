@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 首页内容管理Service实现类
@@ -86,6 +86,26 @@ public class HomeServiceImpl implements HomeService {
             criteria.andCategoryIdEqualTo(cateId);
         }
         return subjectMapper.selectByExample(example);
+    }
+
+    @Override
+    public Map<String, List<PmsProductCategory>> getProductCateAllList() {
+        PmsProductCategoryExample example = new PmsProductCategoryExample();
+        example.createCriteria()
+                .andShowStatusEqualTo(1)
+                .andParentIdEqualTo(0L);
+        example.setOrderByClause("sort desc");
+        Map<String, Long> collect = productCategoryMapper.selectByExample(example).stream().collect(Collectors.toMap(PmsProductCategory::getName, item -> item.getId()));
+        Map<String, List<PmsProductCategory>> res = new HashMap<>();
+        collect.forEach((item, val) -> {
+            PmsProductCategoryExample example1 = new PmsProductCategoryExample();
+            example1.createCriteria()
+                    .andShowStatusEqualTo(1)
+                    .andParentIdEqualTo(val);
+            example1.setOrderByClause("sort desc");
+            res.put(item, productCategoryMapper.selectByExample(example1));
+        });
+        return res;
     }
 
     private HomeFlashPromotion getHomeFlashPromotion() {
