@@ -1,5 +1,5 @@
 /*
-*@Name: 母婴商城
+*@Name: 日销商城
 *@Author: xuzhiwen
 *@Copyright:layui.com
 */
@@ -31,7 +31,7 @@ i{font-style: normal;}
 /*header*/
 .header{height: 100px; line-height: 100px;}
 .header .mallLogo{margin-left: 38px; float: left;}
-.header .mallSearch{float: right; width: 501px; padding-top: 30px; position: relative;}
+.header .mallSearch{float: right; width: 500px; padding-top: 30px; position: relative;}
 .header .mallSearch form{height: 38px; line-height: 38px; border-width: 1px 0 1px 1px; border: solid #f69726; position: relative;}
 .header .mallSearch input{height: 38px; line-height: 38px; width: 436px; float: left; border:none; position: relative; z-index: 2; background: none;}
 .header .mallSearch button{width: 58px; height: 38px; line-height: 38px; float: left; background: #f69726; border-radius:0

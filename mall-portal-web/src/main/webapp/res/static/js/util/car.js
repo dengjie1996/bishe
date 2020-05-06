@@ -1,5 +1,5 @@
 /*
-*@Name: 母婴商城
+*@Name: 日销商城
 *@Author: xuzhiwen
 *@Copyright:layui.com
 */
